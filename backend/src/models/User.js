@@ -11,6 +11,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         require: true
     }, 
+    email:{
+        type: String,
+        unique: true,
+        require: true
+    },
     matricula: {
         type: String,
         unique: true,
@@ -19,6 +24,10 @@ const UserSchema = new mongoose.Schema({
     cargo: {
         type: String,
         enum: ['Professor', 'Analista']
+    },
+    senha: {
+        type: String,
+        require: true       
     }
 });
 

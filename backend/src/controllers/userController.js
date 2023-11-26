@@ -1,9 +1,13 @@
+const { transformUserResponse } = require('../utils/userUtils');
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 const userController = {
     create: async (req, res) => {
-        try{
-            const newUser = await User.create(req.body);
+        try{      
+            const { senha, ...userData } = req.body;
+            const hashedPassword = await bcrypt.hash(senha, 10); 
+            const newUser = await User.create({ ...userData, senha: hashedPassword });
             console.log(req.body);
             res.status(201).json({ message: 'Usuário criado com sucesso', user: newUser});
         } catch(error) {
@@ -13,7 +17,8 @@ const userController = {
     getAll: async (req, res) => {
         try{
             const users = await User.find();
-            res.status(200).json({ message: 'Lista de usuários recuperada com sucesso', users });
+            const safeUsers = transformUserResponse(users);
+            res.status(200).json({ message: 'Lista de usuários recuperada com sucesso', safeUsers });
         } catch(error) {
             res.status(500).json({ error: 'Erro ao recuperar lista de usuários', message: error.message });
         }
@@ -22,8 +27,10 @@ const userController = {
         try {
             const id = req.params.id;
             const user = await User.findOne({ _id: id });
+            const safeUser = transformUserResponse(user);
+
             if (user) 
-                res.status(200).json({ message: 'Usuário encontrado', user });
+                res.status(200).json({ message: 'Usuário encontrado', safeUser });
             else 
                 res.status(404).json({ message: 'Usuário não encontrado' });            
         } catch (error) {
@@ -42,7 +49,7 @@ const userController = {
                 res.status(404).json({ message: 'Usuário não encontrado para atualização' });        
             }
         } catch (error) {
-            console.error(error); // Adicionando um log de erro para verificar possíveis problemas
+            console.error(error); 
             res.status(500).json({ error: 'Erro ao atualizar usuário', message: error.message });
         }
     },

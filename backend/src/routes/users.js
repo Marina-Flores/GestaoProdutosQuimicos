@@ -27,6 +27,14 @@ const userController = require('../controllers/userController');
  *               nome:
  *                 type: string
  *                 description: Nome do usuário
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: E-mail do usuário
+ *               senha:
+ *                 type: string
+ *                 format: password
+ *                 description: Senha do usuário
  *               matricula:
  *                 type: string
  *                 unique: true
@@ -101,6 +109,14 @@ router.route('/:id').get((req, res) => userController.getOnly(req, res));
  *               nome:
  *                 type: string
  *                 description: Nome do usuário
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: E-mail do usuário
+ *               senha:
+ *                 type: string
+ *                 format: password
+ *                 description: Nova senha do usuário (opcional)
  *               matricula:
  *                 type: string
  *                 unique: true
@@ -116,7 +132,6 @@ router.route('/:id').get((req, res) => userController.getOnly(req, res));
  *         description: Sucesso
  */
 router.route('/:id').post((req, res) => userController.update(req, res));
-
 
 /**
  * @swagger
