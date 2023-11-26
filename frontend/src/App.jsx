@@ -4,13 +4,15 @@ import React from 'react';
 import './styles/index.css';
 
 import Header from './components/Header/Header';
-
+import Login from './ControleAcesso/Login';
 
 function App() {
   return (
     <div className="App">
-      <Header />      
+      <Header /> 
+      <Login />          
     </div>
+    
   );
 }
 
