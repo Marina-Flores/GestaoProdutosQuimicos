@@ -1,9 +1,11 @@
-function App() {
+
+import React from 'react';
+import Routes from './routes';
+import WebRoute from './routes';
+
+export default function  App() {
   return (
-    <div className="App">
-      <h1>Hello world!</h1>
-      <h2>Projeto - Gestao de produtos químicos</h2>
-    </div>
+   <WebRoute/>  
   );
-}
+} 
 
