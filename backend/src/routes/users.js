@@ -59,6 +59,8 @@ router.route('/').post((req, res) => userController.create(req, res));
  *     description: Obtém a lista de todos os usuários cadastrados
  *     tags:
  *       - Users
+ *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: Sucesso

@@ -1,3 +1,5 @@
+const { generateToken } = require('../utils/authUtils');
+
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
@@ -12,13 +14,15 @@ const authController = {
         return res.status(401).json({ message: 'Credenciais inválidas' });
       }
       
-      const passwordMatch = await bcrypt.compare(senha, user.senha);
+      const passwordMatch = bcrypt.compare(senha, user.senha);
 
       if (!passwordMatch) {
         return res.status(401).json({ message: 'Credenciais inválidas' });
       }
 
-      return res.status(200).json({ message: 'Login bem-sucedido' });
+      const token = generateToken();
+      
+      return res.status(200).json({ message: 'Login bem-sucedido', accessToken: token });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: 'Erro no servidor' });

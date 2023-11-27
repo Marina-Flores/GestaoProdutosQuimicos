@@ -18,7 +18,7 @@ const userController = {
         try{
             const users = await User.find();
             const safeUsers = transformUserResponse(users);
-            res.status(200).json({ message: 'Lista de usuários recuperada com sucesso', safeUsers });
+            res.status(200).json({ message: 'Lista de usuários recuperada com sucesso', users: safeUsers });
         } catch(error) {
             res.status(500).json({ error: 'Erro ao recuperar lista de usuários', message: error.message });
         }
@@ -30,7 +30,7 @@ const userController = {
             const safeUser = transformUserResponse(user);
 
             if (user) 
-                res.status(200).json({ message: 'Usuário encontrado', safeUser });
+                res.status(200).json({ message: 'Usuário encontrado', user: safeUser });
             else 
                 res.status(404).json({ message: 'Usuário não encontrado' });            
         } catch (error) {
