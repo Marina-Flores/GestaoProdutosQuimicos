@@ -43,7 +43,6 @@ export default function ListaUsuarios() {
                     <div className='container-usuarios'>
                         <div className='container-opcoes-usuarios'>
                             <input type='text' placeholder='Buscar' className='input-busca'></input>
-                            <i class="fa-solid fa-magnifying-glass icone-barra-pesquisa"></i>
                             <div className='container-opcoes-usuarios-botoes'>
                                 <select className='select-quantidade-itens pointer'>
                                     <option value={10} selected>10 usuários por página</option>

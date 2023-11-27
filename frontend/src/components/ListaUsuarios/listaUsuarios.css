@@ -72,21 +72,16 @@
 
 .input-busca {
     width: 30%;
+    background: url('../../assets/img/icone-lupa.png') no-repeat 10px center;
+    background-size: 15px;
     background-color: var(--white);
     outline: none;
     border: 0;
     height: 2rem;
     border-radius: 15px;
-    padding-left: 10px; 
+    padding-left: 30px; 
     font-family: 'Inter', sans-serif;
     color: var(--gray);
-}
-
-.icone-barra-pesquisa {
-    position: absolute;
-    left: 0;
-    color: #D9D9D9;
-
 }
 
 .select-quantidade-itens {
