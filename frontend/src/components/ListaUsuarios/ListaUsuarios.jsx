@@ -4,13 +4,13 @@ import Header from '../Header/Header';
 
 export default function ListaUsuarios() {
     const [usuarios, setUsuarios] = useState([
-        { Nome: "Maria Luisa Ferreira", Cargo: "Analista", Ativo: true },
-        { Nome: "Mike Kennedy", Cargo: "Analista", Ativo: false },
-        { Nome: "Gabriel Carvalho", Cargo: "Analista", Ativo: true },
-        { Nome: "Lucas Santos", Cargo: "Professor", Ativo: true },
-        { Nome: "Ester Vieira", Cargo: "Analista", Ativo: true },
-        { Nome: "Marina Flores", Cargo: "Professor", Ativo: false },
-        { Nome: "Manoel Elias", Cargo: "Analista", Ativo: false },
+        { Nome: "Maria Luisa Ferreira", Cargo: "Analista", Matricula: "123456789" },
+        { Nome: "Mike Kennedy", Cargo: "Analista", Matricula: "234567891" },
+        { Nome: "Gabriel Carvalho", Cargo: "Analista", Matricula: "3456789" },
+        { Nome: "Lucas Santos", Cargo: "Professor", Matricula: "456789123" },
+        { Nome: "Ester Vieira", Cargo: "Analista", Matricula: "567891234" },
+        { Nome: "Marina Flores", Cargo: "Professor", Matricula: "678912345"  },
+        { Nome: "Manoel Elias", Cargo: "Analista", Matricula: "789123456"  },
     ]);
     return (
         <div>
@@ -55,7 +55,7 @@ export default function ListaUsuarios() {
                         <div className='container-lista-cabecalho'>
                             <h5 className='titulo-lista-cabecalho-nome'>Nome</h5>
                             <h5 className='titulo-lista-cabecalho'>Cargo</h5>
-                            <h5 className='titulo-lista-cabecalho'>Status</h5>
+                            <h5 className='titulo-lista-cabecalho'>Matrícula</h5>
                             <h5 className='titulo-lista-cabecalho-acoes'>Ações</h5>
                         </div>
 
@@ -65,11 +65,7 @@ export default function ListaUsuarios() {
                                     <li className='item-usuario'>
                                         <p className='item-usuario-nome'>{usuario.Nome}</p>
                                         <p className='item-usuario-cargo'>{usuario.Cargo}</p>
-                                        {usuario.Ativo ? (
-                                            <p className='item-usuario-status'>Ativo</p>
-                                        ) : (
-                                            <p className='item-usuario-status'>Inativo</p>
-                                        )}
+                                        <p className='item-usuario-matricula'>{usuario.Matricula}</p>
                                         <div className='item-usuario-acoes'>
                                             <a className='pointer'>
                                                 <i class="fa-regular fa-pen-to-square icone icone-edicao"></i>

@@ -129,7 +129,7 @@
     padding-left: 1rem;
 }
 
-.titulo-lista-cabecalho, .item-usuario-cargo, .item-usuario-status {
+.titulo-lista-cabecalho, .item-usuario-cargo, .item-usuario-matricula {
     width: calc(45%/2);
     text-align: center;
 }
@@ -149,6 +149,10 @@
     color: var(--gray);
     font-weight: bold;
     font-size: 14px;
+}
+
+.item-usuario:last-child {
+    margin-bottom: 1rem;
 }
 
 .icone {
