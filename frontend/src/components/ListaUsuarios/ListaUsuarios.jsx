@@ -23,7 +23,7 @@ export default function ListaUsuarios() {
                         <aside className='filtros-usuario'>
                             <h2 className='titulo-filtro'>Filtros</h2>
                             <div className='container-filtro-secao'>
-                                <h4 className='titulo-filtro-secao'>Status</h4>
+                                <h4 className='titulo-filtro-secao'>Matrícula</h4>
                                 <div className='container-filtro-secao-opcoes'>
                                     <label className='pointer'><input type='checkbox'></input> Ativo</label>
                                     <label className='pointer'><input type='checkbox'></input> Inativo</label>
