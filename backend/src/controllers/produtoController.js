@@ -65,7 +65,7 @@ const produtoController = {
             })
             await logProduto.save();
             const excluir = await Produto.deleteOne({_id: id});
-            res.status(200).json(produto);
+            res.status(200).json(excluir);
         }catch(error){
             res.status(500).json({error: error.message})
         }
