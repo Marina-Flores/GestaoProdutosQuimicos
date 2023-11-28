@@ -1,15 +1,12 @@
+// App.jsx
 import React from 'react';
-
-// importando o css global
 import './styles/index.css';
-
-import Header from './components/Header/Header';
-
+import ListaUsuarios from './components/ListaUsuarios/ListaUsuarios';
 
 function App() {
   return (
     <div className="App">
-      <Header />      
+      <ListaUsuarios />
     </div>
   );
 }
