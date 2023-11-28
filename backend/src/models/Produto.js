@@ -9,11 +9,17 @@ const ProdutoSchema = new mongoose.Schema({
     },
     nome: {
         type: String,
+        unique: true,
         required: true
     },
     descricao: {
         type: String,
         required: true
+    },
+    quantidade: {
+        type: Number,
+        required: true,
+        default: 0
     },
     validade: {
         type: Date,

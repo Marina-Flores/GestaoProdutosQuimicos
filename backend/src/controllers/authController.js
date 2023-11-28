@@ -20,7 +20,7 @@ const authController = {
         return res.status(401).json({ message: 'Credenciais inválidas' });
       }
 
-      const token = generateToken();
+      const token = generateToken(user);
       
       return res.status(200).json({ message: 'Login bem-sucedido', accessToken: token });
     } catch (error) {

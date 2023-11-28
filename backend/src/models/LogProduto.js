@@ -23,9 +23,14 @@ const LogProdutoSchema = new mongoose.Schema({
         required: true
     },
     qtd_utilizada: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    descricao: {
         type: String,
         required: true
-    },
+    }
 });
 
 LogProdutoSchema.pre('save', async function(next) {
