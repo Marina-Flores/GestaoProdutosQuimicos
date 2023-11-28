@@ -55,7 +55,16 @@ const produtoController = {
     delete: async (req, res) => {
         try{
             const id = req.params.id;
-            const produto = await Produto.deleteOne({_id: id});
+            const userId = req.user._id;
+            const produto = await Produto.findOne({_id: id});
+            const logProduto = new LogProduto({
+                produto_id: id,
+                user_id: userId,
+                qtd_utilizada: req.body.qtd_utilizada,
+                descricao: `Produto '${produto.nome}' excluído pelo Usuário '${userId}'`,
+            })
+            await logProduto.save();
+            const excluir = await Produto.deleteOne({_id: id});
             res.status(200).json(produto);
         }catch(error){
             res.status(500).json({error: error.message})
