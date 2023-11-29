@@ -8,7 +8,7 @@ header {
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-around;
-    position: fixed;
+    position: static;
 }
 
 header .logo img {
