@@ -1,5 +1,6 @@
 const { transformUserResponse } = require('../utils/userUtils');
 const User = require('../models/User');
+const LogUser = require('../models/LogUser');
 const bcrypt = require('bcrypt');
 const UserDeletionLog = require('../models/UserDeletionLog');
 const mongoose = require('mongoose');
@@ -10,6 +11,12 @@ const userController = {
             const { senha, ...userData } = req.body;
             const hashedPassword = await bcrypt.hash(senha, 10); 
             const newUser = await User.create({ ...userData, senha: hashedPassword });
+            const userId = req.user._id;
+            const logUser = await LogUser.create({
+                user_id: userId,
+                user_id_impactado: newUser.id,
+                action: `Usuário '${newUser.nome} [${newUser.id}]' criado pelo usuário [${userId}]`
+            });
             console.log(req.body);
             res.status(201).json({ message: 'Usuário criado com sucesso', user: newUser});
         } catch(error) {
@@ -46,6 +53,12 @@ const userController = {
             console.log(id);          
             console.log(req.body);
             if (updatedUser) {
+                const userId = req.user._id;
+                const logUser = await LogUser.create({
+                    user_id: userId,
+                    user_id_impactado: updatedUser.id,
+                    action: `Usuário '${updatedUser.nome} [${updatedUser.id}]' atualizado pelo usuário [${userId}]`
+                });
                 res.status(200).json({ message: 'Usuário atualizado com sucesso', user: updatedUser });
             } else {
                 res.status(404).json({ message: 'Usuário não encontrado para atualização' });        
@@ -63,6 +76,12 @@ const userController = {
 
             if (deletedUser) {
                 await UserDeletionLog.create({ userId: new mongoose.Types.ObjectId(deletedUser._id) });
+                const userId = req.user._id;
+                const logUser = await LogUser.create({
+                    user_id: userId,
+                    user_id_impactado: deletedUser.id,
+                    action: `Usuário '${deletedUser.nome} [${deletedUser.id}]' removido pelo usuário [${userId}]`
+                });
                 res.status(200).json({ message: 'Usuário deletado com sucesso', user: deletedUser });
             } else {
                 res.status(404).json({ message: 'Usuário não encontrado para exclusão' });
