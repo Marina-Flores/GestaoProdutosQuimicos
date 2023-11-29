@@ -1,5 +1,6 @@
 const { generateToken } = require('../utils/authUtils');
-
+const mongoose = require('mongoose');
+const UserAccessLog = require('../models/UserAcessLog');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
@@ -21,6 +22,8 @@ const authController = {
       }
 
       const token = generateToken(user);
+
+      await UserAccessLog.create({ userId: new mongoose.Types.ObjectId(user._id) });
       
       return res.status(200).json({ message: 'Login bem-sucedido', accessToken: token });
     } catch (error) {
