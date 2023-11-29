@@ -12,6 +12,5 @@ router.use('/produtos', verifyToken, produtosRouter);
 router.use('/login', loginRouter);
 router.use('/log/produtos', verifyToken, logProdutosRouter);
 router.use('/log/users', verifyToken, logUsersRouter);
-router.use('/log/produtos', logProdutosRouter);
 
 module.exports = router;
