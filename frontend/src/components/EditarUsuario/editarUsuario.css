@@ -33,6 +33,10 @@
     margin-bottom: .3rem;
 }
 
+.label-erro {
+    color: #D53A3A;
+}
+
 .input {
     height: 2rem;
     outline: none;

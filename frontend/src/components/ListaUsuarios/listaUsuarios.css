@@ -101,11 +101,6 @@
     color: var(--white);
 }
 
-.select-quantidade-itens option:hover {
-    background-color: red;
-    color: var(--white);
-}
-
 .btn-novo-usuario {
     height: 2rem;
     padding: .5rem 1.5rem;
