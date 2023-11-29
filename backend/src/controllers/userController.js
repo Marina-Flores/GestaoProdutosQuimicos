@@ -2,7 +2,6 @@ const { transformUserResponse } = require('../utils/userUtils');
 const User = require('../models/User');
 const LogUser = require('../models/LogUser');
 const bcrypt = require('bcrypt');
-const UserDeletionLog = require('../models/UserDeletionLog');
 const mongoose = require('mongoose');
 
 const userController = {
