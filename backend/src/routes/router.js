@@ -10,7 +10,11 @@ const verifyToken = require('../middlewares/authMiddleware');
 router.use('/users', verifyToken, usersRouter);
 router.use('/produtos', verifyToken, produtosRouter);
 router.use('/login', loginRouter);
+<<<<<<< Updated upstream
 router.use('/log/produtos', verifyToken, logProdutosRouter);
 router.use('/log/users', verifyToken, logUsersRouter);
+=======
+router.use('/log/produtos', logProdutosRouter);
+>>>>>>> Stashed changes
 
 module.exports = router;
