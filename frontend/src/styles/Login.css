@@ -4,14 +4,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+
 }
 
 body {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100vh; */
     /* background: url('D:\GestaoProdutosQuimicos\GestaoProdutosQuimicos\web\src\ControleAcesso\assets\background.jpg') no-repeat;
     background-size: cover;
     background-position: center; */
