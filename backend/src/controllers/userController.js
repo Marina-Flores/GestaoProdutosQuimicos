@@ -1,6 +1,8 @@
 const { transformUserResponse } = require('../utils/userUtils');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const UserDeletionLog = require('../models/UserDeletionLog');
+const mongoose = require('mongoose');
 
 const userController = {
     create: async (req, res) => {
@@ -53,14 +55,18 @@ const userController = {
             res.status(500).json({ error: 'Erro ao atualizar usuário', message: error.message });
         }
     },
-    delete: async(req, res) => {
+    delete: async (req, res) => {
         try {
             const id = req.params.id;
+            const userToDelete = await User.findById(id);
             const deletedUser = await User.findByIdAndDelete(id);
-            if (deletedUser)
+
+            if (deletedUser) {
+                await UserDeletionLog.create({ userId: new mongoose.Types.ObjectId(deletedUser._id) });
                 res.status(200).json({ message: 'Usuário deletado com sucesso', user: deletedUser });
-            else 
-                res.status(404).json({ message: 'Usuário não encontrado para exclusão' });            
+            } else {
+                res.status(404).json({ message: 'Usuário não encontrado para exclusão' });
+            }
         } catch (error) {
             res.status(500).json({ error: 'Erro ao deletar usuário', message: error.message });
         }
