@@ -7,16 +7,18 @@ const estoqueSchema = new mongoose.Schema({
     required: true,
     default: 0,
   },
-  IDProduto: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Produto',
-    required: true,
-  },
-  Quantidade: {
-    type: Number,
-    required: true,
-  },
-  Sala: {
+  produtos: [{
+    produto_id: {
+      type: Number,
+      ref: 'Produto',
+      required: true,
+    },
+    quantidade: {
+      type: Number,
+      required: true,
+    },
+  }],
+  sala: {
     type: String,
     required: true,
   },

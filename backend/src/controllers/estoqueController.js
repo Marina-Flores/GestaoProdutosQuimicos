@@ -1,4 +1,3 @@
-// estoqueController.js
 const Estoque = require('../models/Estoque');
 const LogEstoque = require('../models/LogEstoque');
 const mongoose = require('mongoose');
@@ -16,6 +15,30 @@ const estoqueController = {
       res.status(201).json({ message: 'Item de estoque criado com sucesso', estoque: newEstoque });
     } catch (error) {
       res.status(500).json({ message: 'Erro ao criar item de estoque', error: error.message });
+    }
+  },
+  addProduto: async (req, res) => {
+    try {
+      const { IDProduto, Quantidade, Sala } = req.body;
+      const estoqueItem = await Estoque.findOne({ IDProduto, Sala });
+
+      if (estoqueItem) {
+        estoqueItem.Quantidade += Quantidade;
+        await estoqueItem.save();
+
+        const userId = req.user._id;
+        const logEstoque = await LogEstoque.create({
+          user_id: userId,
+          estoque_id_impactado: estoqueItem.id,
+          action: `Adição de ${Quantidade} unidades do produto '${IDProduto}' ao estoque na sala '${Sala}' pelo usuário [${userId}]`
+        });
+
+        res.status(200).json({ message: 'Produto adicionado ao estoque com sucesso', estoque: estoqueItem });
+      } else {
+        res.status(404).json({ message: 'Item de estoque não encontrado para adição de produto' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao adicionar produto ao estoque', error: error.message });
     }
   },
   getAll: async (req, res) => {
