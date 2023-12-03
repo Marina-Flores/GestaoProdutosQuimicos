@@ -1,21 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
-}
-
-body {
-    /* display: flex;
+/* body {
+    display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; */
-    /* background: url('D:\GestaoProdutosQuimicos\GestaoProdutosQuimicos\web\src\ControleAcesso\assets\background.jpg') no-repeat;
-    background-size: cover;
-    background-position: center; */
-}
+    min-height: 100vh; 
+    /* background: url('D:\GestaoProdutosQuimicos\GestaoProdutosQuimicos\web\src\ControleAcesso\assets\background.jpg') no-repeat; */
+    /* background-size: cover;
+    background-position: center; 
+} */ 
 
 header {
     position: fixed;

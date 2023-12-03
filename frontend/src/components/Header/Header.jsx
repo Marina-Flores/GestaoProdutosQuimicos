@@ -19,7 +19,7 @@ export default function Header() {
                     <img src={logo} alt="Logo GPQ"/>
                 </div>
 
-                <div className='spacer' />
+                <div id='spacer' />
 
                 <div className={`list ${showMenu ? 'open' : ''}`}>
                     <ul>

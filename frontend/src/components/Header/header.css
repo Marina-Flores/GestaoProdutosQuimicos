@@ -23,7 +23,7 @@ header .left {
     align-items: center;
 }
 
-.spacer {
+#spacer {
     width: 3px;
     height: 60px;
     background-color: var(--blue);
@@ -31,7 +31,7 @@ header .left {
 
 .list {
     padding-left: 4rem;
-    width: 400px;
+    width: 500px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -45,6 +45,7 @@ header .left {
     flex-direction: row;
     flex-wrap: nowrap;
     padding: .8rem;
+    gap: 1rem;
 }
 
 .list ul li {
@@ -69,11 +70,12 @@ header .left {
 }
 
 .right .icons{
-    width: 200px;
+    width: 300px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
+    justify-content: end;
     gap: 1rem;
 }
 
