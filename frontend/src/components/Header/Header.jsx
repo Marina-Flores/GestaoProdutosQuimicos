@@ -9,7 +9,12 @@ export default function Header() {
     const [showMenu, setShowMenu] = useState(false);
 
     const handleMenuToggle = () => {
-    setShowMenu(!showMenu);
+        setShowMenu(!showMenu);
+        
+    };
+
+    const handleCloseMenu = () => {
+        setShowMenu(false);
     };
 
     return (
@@ -22,6 +27,9 @@ export default function Header() {
                 <div id='spacer' />
 
                 <div className={`list ${showMenu ? 'open' : ''}`}>
+                    <div className="close__menu" onClick={handleCloseMenu}>
+                        <i id='fechar' class="fa-solid fa-square-xmark" />
+                    </div>
                     <ul>
                         <li>
                             <Link to={null} className='a__link' id='cadastrar'>Cadastrar Produtos</Link>
@@ -48,6 +56,7 @@ export default function Header() {
                     </div>
                 </div>
             </div>
+
         </header>
     );
 };
