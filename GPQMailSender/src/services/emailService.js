@@ -1,46 +1,34 @@
-require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const nodemailer = require('nodemailer');
-const handlebars = require('handlebars');
-const fs = require('fs');
+const enviarEmail = async (destinatario) => {
+  const corpoTexto = `Olá!\n\nEste é um e-mail de exemplo em texto simples.`;
 
-const emailService = process.env.EMAIL_SERVICE;
-const emailUser = process.env.EMAIL_USER;
-const emailPass = process.env.EMAIL_PASS;
+  const corpoHTML = `
+    <html>
+      <body>
+        <h1>Olá!</h1>
+        <p>Este é um e-mail de exemplo em HTML.</p>
+      </body>
+    </html>
+  `;
 
-const enviarEmail = (destinatario, nomeDestinatario) => {
-    const transporter = nodemailer.createTransport({
-        service: emailService,
-        auth: {
-            user: emailUser,
-            pass: emailPass
-        }
-    });
-    
-    const source = fs.readFileSync('../templates/esqueciMinhaSenha.handlebars', 'utf8');
-    const template = handlebars.compile(source);
-    
-    const data = {
-        nome: nomeDestinatario,
-        url: 'http://localhost:3000/recuperar-senha'
-    };
+  const msg = {
+    to: destinatario,
+    from: 'mlbtf@discente.ifpe.edu.br',
+    subject: 'Esqueci Minha Senha',
+    text: corpoTexto, // Corpo de texto simples
+    html: corpoHTML, // Corpo em HTML
+  };
 
-    const htmlEmail = template(data);
+  try {
+    await sgMail.send(msg);
+    console.log('E-mail enviado com sucesso!');
+    return true;
+  } catch (error) {
+    console.error('Erro ao enviar e-mail:', error);
+    return false;
+  }
+};
 
-    const mailOptions = {
-        from: emailUser, 
-        to: destinatario,
-        subject: 'Recuperação de Senha',
-        html: htmlEmail
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error('Erro ao enviar e-mail:', error);
-          } else {
-            console.log('E-mail enviado:', info.response);
-          }
-    })
-
-}
-
+module.exports = { enviarEmail };

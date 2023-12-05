@@ -6,7 +6,7 @@ const envioSchema = new mongoose.Schema({
         require: true
     },
     nomeDestinatario: {
-        type: String, 
+        type: String,
         require: true
     },
     tipo:{
@@ -22,7 +22,7 @@ const envioSchema = new mongoose.Schema({
         type: String,
         require: true
     }
-}, { timestamps: true });
+});
 
 const Envio = mongoose.model('Envio', envioSchema);
 module.exports = Envio;
