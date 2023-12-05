@@ -5,12 +5,20 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+
 import logo from '../assets/img/logo.png'; 
 import imginit from '../assets/img/init-img.png'; 
 
 const EmailIcon = () => (
 
     <FontAwesomeIcon icon={faEnvelope} />
+
+)
+const BackIcon = () => (
+
+
+    <FontAwesomeIcon icon={faArrowLeft} />
 
 )
 
@@ -37,16 +45,16 @@ export default function Login() {
     useEffect(() => {
         const wrapper = document.querySelector(".wrapper");
         const loginLink = document.querySelector(".login-link");
-        //const registerLink = document.querySelector(".register-link");
+        const registerLink = document.querySelector(".register-link");
         const btnPopup = document.querySelector(".btnLogin-popup");
         const linkInicio = document.querySelector(".linkInicio");
         const btnClose = document.querySelector(".icon-close");
         
 
     
-        // registerLink.addEventListener('click', () => {
-        //     wrapper.classList.add('active');
-        // });
+        registerLink.addEventListener('click', () => {
+            wrapper.classList.add('active');
+        });
     
         loginLink.addEventListener('click', () => {
             wrapper.classList.remove('active');
@@ -64,9 +72,9 @@ export default function Login() {
         });
     
         return () => {
-            // registerLink.removeEventListener('click', () => {
-            //     wrapper.classList.add('active');
-            // });
+            registerLink.removeEventListener('click', () => {
+                wrapper.classList.add('active');
+            });
     
             loginLink.removeEventListener('click', () => {
                 wrapper.classList.remove('active');
@@ -95,61 +103,64 @@ export default function Login() {
                     <button className="btnLogin-popup">Entrar</button>
                 </nav>
             </header>
-            <div className="wrapper">
-                <span className="icon-close">
-                    <CloseIcon />
-                </span>
-                <div className="form-box login">
-                    <h2>Login</h2>
-                    <form action="#">
-                        <div className="input-box">
-                            <span className="icon"><EmailIcon /> </span>
-                            <input type="email" required></input>
-                            <label>Email</label>
-                        </div>
-                        <div className="input-box">
-                            <span className="icon password"><Password /> </span>
-                            <input type="password" required></input>
-                            <label>Senha</label>
-                        </div>
-                        <div className="remember-forgot">
-                            <label><input type="checkbox"></input>Manter Login</label>
-                            <a href="#">Esqueceu a Senha?</a>
-                        </div>
-                        <button type="submit" className="btn">Entrar</button>
-                    </form>
-                </div>
-                <div className="form-box register">
-                    <h2>Cadastro</h2>
-                    <form action="#">
-                        <div className="input-box">
-                            <span className="icon"><UserIcon /> </span>
-                            <input type="text" required></input>
-                            <label>Nome do Usuário</label>
-                        </div>
-                        <div className="input-box">
-                            <span className="icon"><EmailIcon /> </span>
-                            <input type="email" required></input>
-                            <label>Email</label>
-                        </div>
-                        <div className="input-box">
-                            <span className="icon password"><Password /> </span>
-                            <input type="password" required></input>
-                            <label>Senha</label>
-                        </div>                      
-                        <div className="input-box">
-                            <span className="icon password"><Password /> </span>
-                            <input type="password" required></input>
-                            <label>Confirmar Senha</label>
-                        </div>
-                        <div className="remember-forgot">
-                            <label><input type="checkbox"></input>Eu concordo com os Termos de Uso</label>
-                        </div>
-                        <button type="submit" className="btn">Cadastrar</button>
-                        <div className="login-register">
-                            <p>Já tem uma conta? <a href="#" className="login-link">Login</a></p>
-                        </div>
-                    </form>
+            <div className="body-login">
+                <div className="wrapper">
+                    <span className="icon-close">
+                        <CloseIcon />
+                    </span>
+                    <div className="form-box login">
+                        <h2>Login</h2>
+                        <form action="#">
+                            <div className="input-box">
+                                <span className="icon"><EmailIcon /> </span>
+                                <input type="email" required></input>
+                                <label>Email</label>
+                            </div>
+                            <div className="input-box">
+                                <span className="icon password"><Password /> </span>
+                                <input type="password" required></input>
+                                <label>Senha</label>
+                            </div>
+                            <div className="remember-forgot">
+                                <label><input type="checkbox"></input>Manter Login</label>
+                                <a href="#" className="register-link">Esqueceu a Senha?</a>
+                            </div>
+                            <button type="submit" className="btn">Entrar</button>
+
+                        </form>
+                    </div>
+                    <div className="form-box register">
+                        <h2 className="title-recuperacao">Esqueceu a Senha?</h2>
+                        <form action="#">
+                            {/* <div className="input-box">
+                                <span className="icon"><UserIcon /> </span>
+                                <input type="text" required></input>
+                                <label>Nome do Usuário</label>
+                            </div> */}
+                            <div className="input-box">
+                                <span className="icon"><EmailIcon /> </span>
+                                <input type="email" required></input>
+                                <label>Email de Recuperação</label>
+                            </div>
+                            {/* <div className="input-box">
+                                <span className="icon password"><Password /> </span>
+                                <input type="password" required></input>
+                                <label>Senha</label>
+                            </div>                      
+                            <div className="input-box">
+                                <span className="icon password"><Password /> </span>
+                                <input type="password" required></input>
+                                <label>Confirmar Senha</label>
+                            </div>
+                            <div className="remember-forgot">
+                                <label><input type="checkbox"></input>Eu concordo com os Termos de Uso</label>
+                            </div> */}
+                            <button type="submit" className="btn">Enviar</button>
+                            <div className="login-register">
+                                <p>Conta recuperada? <a href="#" className="login-link">Voltar</a></p>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
             {/* <div className="wrapper-init">
