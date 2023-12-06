@@ -5,19 +5,20 @@ footer {
     height: auto;
     background-color: var(--black);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     position: static;
     margin-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 2rem;
 }
 
 .images {
     display: flex;
     align-items: center;
-    height: 200px;
+    height: 300px;
+    width: 300px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -59,4 +60,9 @@ footer {
 .link{
     text-decoration: none;
     color: var(--white);
+}
+
+.fa-brands.fa-github {
+    color: var(--white);
+    margin-right: .2rem;
 }
