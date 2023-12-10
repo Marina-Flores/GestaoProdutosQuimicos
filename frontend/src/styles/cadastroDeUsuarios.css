@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins');
+@import url('https://fonts.googleapis.com/css2?family=Inter');
+
+.pointer {
+    cursor: pointer;
+}
+
+.container-cadastro {
+    width: 40%;
+    max-width: 600px;
+    background-color: var(--white);
+    margin: 5rem auto 0;
+    border-radius: 5px;
+    padding: 1.5rem 2rem;
+}
+
+.titulo {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: var(--blue);
+    margin-bottom: 1rem;
+}
+
+.container-input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.label {
+    font-family: 'Inter', sans-serif;
+    color: var(--gray);
+    margin-bottom: .3rem;
+}
+
+.label-erro {
+    color: #D53A3A;
+}
+
+.input {
+    height: 2rem;
+    outline: none;
+    border: 1px solid var(--gray);
+    border-radius: 5px;
+    padding-left: 5px;
+    font-family: 'Inter', sans-serif;
+    color: var(--gray);
+}
+
+.input option:checked {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.btn-salvar{
+    width: 60%;
+    height: 2.2rem;
+    background-color: var(--blue);
+    outline: none;
+    border: 0;
+    border-radius: 15px;
+    margin: .5rem 20% 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+    font-weight: 500;
+    font-size: 16px;
+}
