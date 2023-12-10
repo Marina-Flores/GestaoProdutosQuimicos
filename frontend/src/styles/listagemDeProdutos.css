@@ -1,0 +1,182 @@
+.section__listagem {
+    width: 100%;
+    padding: 3rem 0 0 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#head2__listagem {
+    color: var(--blue);
+    padding: 1rem 0 3rem 0;
+    align-self: safe;
+    margin-left: -40rem;
+    font-size: 2rem;
+}
+
+.listagem__de__produtos{
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+
+.listagem {
+    width: 380px;
+    display: block;
+}
+
+.listagem h2 {
+    color: var(--blue);
+    padding-bottom: 1rem;
+}
+
+.listagem .aside__filtros {
+    width: 350px;
+    height: auto;
+    padding: 2rem;
+    border-radius: 25px;
+    background: var(--white);
+    box-shadow:  20px 20px 60px #d5d5d5,
+             -20px -20px 60px #ffffff;
+}
+
+.listagem h3 {
+    color: var(--black); 
+    margin-bottom: .4rem;
+}
+
+.listagem .filtro {
+    margin-bottom: .4rem;
+}
+
+.acoes {
+    width: 820px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.acoes .top{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.acoes .top input {
+    padding: .6rem 2.4rem;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    background: var(--white);
+    box-shadow:  20px 20px 60px #d5d5d5,
+             -20px -20px 60px #ffffff;
+}
+
+#redirect__cadastro__de__produto {
+    padding: .6rem 1.6rem;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    background: var(--blue);
+    color: var(--white);  
+    text-decoration: none;
+}
+
+#icon__novo__produto {
+    padding: .1rem;
+    background-color: var(--white);
+    color: var(--blue);
+    border-radius: 2px;
+}
+
+.acoes .produtos .head{
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+    height: 28px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.acoes .produtos .head .left {
+    width: 350px;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.acoes .produtos .head .right {
+    display: flex;
+    flex-direction: row;
+    width: 470px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.acoes .produtos .head .right p {
+    width: 132px;
+}
+
+.acoes .produtos .head .right #controlado {
+    margin-right: -2rem;
+    margin-left: 3rem;
+}
+
+.acoes .produtos .head p {
+    font-size: 11pt;
+    font-weight: 600;
+    color: var(--gray);
+}
+
+.acoes .produtos .body {
+    width: 820px;
+    height: 470px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: baseline;      
+}
+
+.acoes .produtos .footer {
+    padding: 1rem;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: .6rem;
+}
+
+.acoes .produtos .footer .anterior{
+    width: 120px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: .6rem 2rem;
+    background-color: var(--white);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.acoes .produtos .footer .proximo{
+    width: 120px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: .6rem 2rem;
+    background-color: var(--blue);
+    color: var(--white);
+    border-radius: 12px;
+    cursor: pointer;
+}

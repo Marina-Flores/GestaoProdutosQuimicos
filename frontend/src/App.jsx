@@ -1,12 +1,16 @@
-// App.jsx
 import React from 'react';
+
+// importando o css global
 import './styles/index.css';
-import ListaUsuarios from './components/ListaUsuarios/ListaUsuarios';
+
+// import Header from './components/Header/Header';
+import WebRoute from './routes';
 
 function App() {
   return (
     <div className="App">
-      <ListaUsuarios />
+      {/* <header /> */}
+       <WebRoute/>  
     </div>
   );
 }

@@ -4,14 +4,21 @@
     --blue: #06617D;
     --gray: #606060;
     --soft-gray: #EEEDEF;
+    --red: #FF9292;
+    --yellow: #eff9c8;
+    --green: #A3E599;
+    --light-blue: #A6E1EE;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
     background-color: var(--soft-gray);
+    width: 100vw;
+    height: 100vh; 
 }

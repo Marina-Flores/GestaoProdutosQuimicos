@@ -1,0 +1,68 @@
+footer {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background-color: var(--black);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    position: static;
+    margin-top: 1rem;
+    padding: 2rem;
+}
+
+.images {
+    display: flex;
+    align-items: center;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.images #logo {
+    width: 240px;
+    height: 120px;
+}
+
+.images #logoIF {
+    width: 160px;
+    height: 160px;
+}
+
+.spacer {
+    width: 3px;
+    background-color: var(--blue);
+    height: 120px;
+}
+
+.rights {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 400px;
+    text-align: center;
+}
+
+.p__place {
+    margin-bottom: 1rem;
+}
+
+
+.rights p {
+    color: var(--blue);
+}
+
+.link{
+    text-decoration: none;
+    color: var(--white);
+}
+
+.fa-brands.fa-github {
+    color: var(--white);
+    margin-right: .2rem;
+}

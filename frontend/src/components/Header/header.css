@@ -3,12 +3,12 @@ header {
     width: 100vw;
     height: 6rem;
     background-color: var(--white);
-    position: sticky;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-around;
+    position: static;
 }
 
 header .logo img {
@@ -23,7 +23,7 @@ header .left {
     align-items: center;
 }
 
-.spacer {
+#spacer {
     width: 3px;
     height: 60px;
     background-color: var(--blue);
@@ -31,7 +31,7 @@ header .left {
 
 .list {
     padding-left: 4rem;
-    width: 400px;
+    width: 500px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -45,13 +45,14 @@ header .left {
     flex-direction: row;
     flex-wrap: nowrap;
     padding: .8rem;
+    gap: 1rem;
 }
 
 .list ul li {
     margin: .4rem;
 }
 
-.list ul li a {
+.list ul li .a__link {
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
     font-size: .8rem;
@@ -60,30 +61,31 @@ header .left {
     transition: ease .05s;
 }
 
-.list ul li a:hover {
+.list ul li .a__link:hover {
     color: var(--blue)
 }
 
-.list ul li a .active {
+.list ul li .a__link .active {
     color: var(--blue);
 }
 
-.right {
-    width: 200px;
+.right .icons{
+    width: 300px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
+    justify-content: end;
     gap: 1rem;
 }
 
-#bell {
+.right .icons #bell {
     color: var(--blue);
     font-size: 1.4rem;
     cursor: pointer;
 }
 
-.user__profile {
+#user__profile {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -100,3 +102,93 @@ header .left {
     font-size: 1.4rem;
     cursor: pointer;
 }
+
+/* toggle */
+#toggle__menu {
+    display: none;
+    font-size: 2.2rem;
+    color: var(--blue);
+    cursor: pointer;
+}
+
+.menu {
+    display: none;
+}
+
+.close__menu {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    color: var(--blue);
+    font-size: 2rem;
+}
+
+@media (max-width: 840px) {
+    header {
+        justify-content: space-between;
+    }
+
+    .right {
+        width: 30px;
+    }
+
+    .icons .icon__menu {
+        display: none;
+    }
+    
+    #toggle__menu {
+        display: inline;
+    }
+    
+    .list {
+        display: none;
+    }
+    
+    .list.open {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        background-color: var(--white);
+        width: 300px;
+        height: 100%;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        transition: transform 0.3s ease-in-out 0.1s;
+    }
+
+    .list.open ul {
+        margin-top: 4rem;
+        padding: 1rem;
+        height: 500px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .list.open ul li{
+        text-align: left;
+        width: 100%;
+        align-self: first baseline;
+        cursor: pointer;
+    }
+
+    .list.open ul li:hover{
+        color: var(--blue);
+        transform: scale(1.1);
+    }
+
+  
+    .close__menu {
+        padding: 1rem .5rem 0 0;
+        display: flex;
+        width: 80%;
+        justify-content: flex-end;
+    }
+    
+}
+
