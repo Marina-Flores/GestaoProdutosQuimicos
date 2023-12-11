@@ -4,6 +4,7 @@ import Header from '../components/Header/Header.jsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import Footer from '../components/Footer/Footer.jsx';
 
 export default function ListagemUsuarios (props) {
   const [usuarios, setUsuarios] = useState([]);
@@ -146,12 +147,12 @@ export default function ListagemUsuarios (props) {
                   <p className='item-usuario-cargo'>{usuario.cargo}</p>
                   <p className='item-usuario-matricula'>{usuario.matricula}</p>
                   <div className='item-usuario-acoes'>
-                        <button>
+                        <a>
                             <FontAwesomeIcon icon={faEdit} className='icone icone-edicao' />
-                        </button>
-                        <button>
+                        </a>
+                        <a>
                             <FontAwesomeIcon icon={faTrash} className='icone icone-delecao' />
-                        </button>
+                        </a>
                     </div>
                   {/* Adicione as ações do usuário aqui */}
                 </li>
@@ -159,11 +160,17 @@ export default function ListagemUsuarios (props) {
             </ul>
 
             <div className='botoes-paginacao'>
-              {/* Adicione os botões de paginação aqui */}
+            <button className='pagina-anterior pointer'>
+                                <i class="fa-solid fa-chevron-left"></i> Anterior
+                            </button>
+                            <button className='proxima-pagina pointer'>
+                                Próxima <i class="fa-solid fa-chevron-right"></i>
+                            </button>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
