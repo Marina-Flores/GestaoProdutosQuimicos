@@ -25,14 +25,14 @@ export default function CadastroDeProdutos(props) {
         const { name, value, type, files } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: type === 'file' ? files[0] : value,
+            [name]: type === 'file' ? (files.length > 0 ? files[0] : null) : value,
         }));
     };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const url = 'http://localhost:8080/cadastrar-produto';
+        const url = 'api';
 
         const formDataToSend = new FormData();
         for (const key in formData) {
@@ -43,6 +43,9 @@ export default function CadastroDeProdutos(props) {
             const response = await fetch(url, {
                 method: 'POST',
                 body: formDataToSend,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
 
             if (response.ok) {
