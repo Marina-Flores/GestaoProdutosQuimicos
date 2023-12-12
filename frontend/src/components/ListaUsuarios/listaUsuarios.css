@@ -72,7 +72,7 @@
 
 .input-busca {
     width: 30%;
-    background: url('../assets/img/icone-lupa.png') no-repeat 10px center;
+    background: url('../../assets/img/icone-lupa.png') no-repeat 10px center;
     background-size: 15px;
     background-color: var(--white);
     outline: none;
