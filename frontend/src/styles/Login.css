@@ -7,13 +7,12 @@
 
 }
 
-
 .body-login {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('D:\GestaoProdutosQuimicos\GestaoProdutosQuimicos\frontend\src\assets\img\login-background.jpg') no-repeat;
+    background: url('../assets/img/login-background.jpg') no-repeat;
     background-size: cover;
     background-position: center;
 }

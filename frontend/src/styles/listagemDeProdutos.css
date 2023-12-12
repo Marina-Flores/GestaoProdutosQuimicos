@@ -104,11 +104,11 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: safe;
 }
 
 .acoes .produtos .head .left {
-    width: 350px;
+    width: 30px;
     align-items: center;
     margin-left: 1rem;
 }
@@ -118,22 +118,32 @@
     flex-direction: row;
     width: 470px;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: baseline;
+    margin-left: 9rem;
 }
 
 .acoes .produtos .head .right p {
-    width: 132px;
+    min-width: auto;
+    margin-inline: .8rem;
 }
 
-.acoes .produtos .head .right #controlado {
-    margin-right: -2rem;
-    margin-left: 3rem;
+#txt__fisqp {
+    margin-inline: -.8rem 2rem;
+}
+
+#txt__ef {
+    margin-inline: 1rem 3rem;
+}
+
+#txt__cr {
+    margin-inline: 1.8rem .4rem;
 }
 
 .acoes .produtos .head p {
-    font-size: 11pt;
+    font-size: 7pt;
     font-weight: 600;
     color: var(--gray);
+    text-align: center;
 }
 
 .acoes .produtos .body {

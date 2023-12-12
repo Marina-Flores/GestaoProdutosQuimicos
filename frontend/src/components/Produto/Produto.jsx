@@ -3,24 +3,6 @@ import React from "react";
 import './produto.css';
     
 export default function Produto(props) {
-
-    function getCorDaClasse(classeDeRisco) {
-        const mapaDeCores = {
-          'inflamável': 'vermelho',
-          'explosivo': 'vermelho',
-          'corrosívo': 'verde',
-          'tóxico': 'verde',
-          'gases': 'azul',
-          'infectante': 'amarelo',
-          'peroxido organico': 'amarelo',
-          'neutro': 'cinza',
-        };
-    
-        const classeMinusc = classeDeRisco.toLowerCase();
-      
-        return mapaDeCores[classeMinusc] || 'cinza';
-    }
-
     return (
         <div className="container__produto">
             <div className="left">
@@ -31,12 +13,32 @@ export default function Produto(props) {
                 <div className={props.fisqp === "fisqp" ? "fisqp__blue__icon" : "fisqp__gray__icon"}>
                     <i class="fa-solid fa-file-lines"></i>
                 </div>
-                <div className={`produto__classe__de__risco ${getCorDaClasse(props.classeDeRisco)}`}>
-                    {props.classeDeRisco}
+                <div className="all__prod">
+                    <div className="produto__quantidade">
+                        {props.quantidade}
+                    </div>
+                    <div className="produto__estado__fisico">
+                        {props.estadoFisico}
+                    </div>
+                    <div className="produto__data__fabricacao">
+                        {props.dataFabricacao}
+                    </div>
+                    <div className="produto__data__validade">
+                        {props.dataValidade}
+                    </div>
+                    <div className={`produto__classe__de__risco`}>
+                        {props.classeDeRisco}
+                    </div>
+                    <div className="produto__controlado">
+                        {props.controlado}
+                    </div>
+                    <div className="produto__sala">
+                        {props.sala}
+                    </div>
                 </div>
-                <div className="produto__controlado">
-                    {props.controlado}
-                </div>
+            </div>
+            <div className="produto__button">
+                <i class="fa-solid fa-pen-to-square"></i>
             </div>
         </div>
     );
