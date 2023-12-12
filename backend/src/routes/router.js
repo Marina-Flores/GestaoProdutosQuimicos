@@ -2,15 +2,18 @@ const router = require('express').Router()
 
 const usersRouter = require('./users');
 const produtosRouter = require('./produtos');
-const loginRouter = require('./auth');
+const estoqueRouter = require('./estoque');
 const logProdutosRouter = require('./logprodutos');
 const logUsersRouter = require('./logusers');
+const logEstoqueRouter = require('./logestoque');
+const loginRouter = require('./auth');
 const verifyToken = require('../middlewares/authMiddleware');
 
 router.use('/users', verifyToken, usersRouter);
 router.use('/produtos', verifyToken, produtosRouter);
-router.use('/login', loginRouter);
+router.use('/estoque', verifyToken, estoqueRouter);
 router.use('/log/produtos', verifyToken, logProdutosRouter);
 router.use('/log/users', verifyToken, logUsersRouter);
+router.use('/log/estoque', verifyToken, logEstoqueRouter);
 
 module.exports = router;
