@@ -41,6 +41,36 @@ router.route('/').post((req, res) => estoqueController.create(req, res));
 
 /**
  * @swagger
+ * /api/estoque/add-produto:
+ *   post:
+ *     summary: Adicionar um produto ao estoque
+ *     description: Adiciona um novo produto ao estoque com base nos dados fornecidos
+ *     tags:
+ *       - Estoque
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               IDdoProduto:
+ *                 type: number
+ *                 description: ID do produto a ser adicionado ao estoque
+ *               Quantidade:
+ *                 type: number
+ *                 description: Quantidade inicial do produto em estoque
+ *               Sala:
+ *                 type: string
+ *                 description: Nome da sala associada ao produto no estoque
+ *     responses:
+ *       201:
+ *         description: Sucesso
+ */
+router.route('/add-produto').post((req, res) => estoqueController.addProduto(req, res));
+
+/**
+ * @swagger
  * /api/estoque/all:
  *   get:
  *     summary: Obter todos os itens em estoque
@@ -95,7 +125,7 @@ router.route('/:id').get((req, res) => estoqueController.getOnly(req, res));
  *             type: object
  *             properties:
  *               IDProduto:
- *                 type: string
+ *                 type: number
  *                 description: ID do produto associado ao item de estoque
  *               Quantidade:
  *                 type: number

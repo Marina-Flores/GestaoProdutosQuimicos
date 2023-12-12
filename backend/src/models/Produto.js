@@ -33,7 +33,7 @@ const ProdutoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    unidadeDeMedida: {
+    estadoFisico: {
         type: String,
         required: true,
     },
@@ -41,6 +41,10 @@ const ProdutoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    sala: {
+        type: String,
+        required: true,
+      },
 });
 
 ProdutoSchema.pre('save', async function (next) {

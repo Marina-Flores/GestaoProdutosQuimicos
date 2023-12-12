@@ -32,13 +32,10 @@ export default function Header() {
                     </div>
                     <ul>
                         <li>
-                            <Link to={null} className='a__link' id='cadastrar'>Cadastrar Produtos</Link>
+                            <Link to={'../cadastrar-produtos'} className='a__link' id='cadastrar'>Cadastrar Produtos</Link>
                         </li>
                         <li>
-                            <Link to={null} className='a__link' id='listar'>Listar Produtos</Link>
-                        </li>
-                        <li>
-                            <Link to={null} className='a__link' id='estoque'>Estoque</Link>
+                            <Link to={"../listar-produtos"} className='a__link' id='listar'>Listar Produtos</Link>
                         </li>
                     </ul>
                 </div>

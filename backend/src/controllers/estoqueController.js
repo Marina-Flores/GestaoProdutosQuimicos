@@ -1,4 +1,3 @@
-// estoqueController.js
 const Estoque = require('../models/Estoque');
 const LogEstoque = require('../models/LogEstoque');
 const mongoose = require('mongoose');
@@ -7,17 +6,55 @@ const estoqueController = {
   create: async (req, res) => {
     try {
       const newEstoque = await Estoque.create(req.body);
-      const userId = req.user._id;
-      const logEstoque = await LogEstoque.create({
-        user_id: userId,
-        estoque_id_impactado: newEstoque.id,
-        action: `Item de estoque associado ao produto '${newEstoque.IDProduto} [${newEstoque.id}]' criado pelo usuário [${userId}]`
-      });
+      if (req.user) {
+        const userId = req.user._id;
+        const logEstoque = await LogEstoque.create({
+          user_id: userId,
+          estoque_id_impactado: newEstoque.id,
+          action: `Item de estoque associado ao produto '${newEstoque.IDProduto} [${newEstoque.id}]' criado pelo usuário [${userId}]`
+        });
+      }
       res.status(201).json({ message: 'Item de estoque criado com sucesso', estoque: newEstoque });
     } catch (error) {
       res.status(500).json({ message: 'Erro ao criar item de estoque', error: error.message });
     }
   },
+  addProduto: async (req, res) => {
+    try {
+      const { IDdoProduto, Quantidade, Sala } = req.body;
+      const estoqueItem = await Estoque.findOne({ 'produtos.produto_id': IDdoProduto });
+  
+      if (!estoqueItem) {
+        return res.status(404).json({ message: 'Item de estoque não encontrado para adição de produto' });
+      }
+  
+      if (Quantidade < 0 && estoqueItem.produtos[0].quantidade + Quantidade < 0) {
+        return res.status(400).json({ message: 'A quantidade não pode resultar em um valor negativo.' });
+      }
+  
+      const produtoIndex = estoqueItem.produtos.findIndex((produto) => produto.produto_id === IDdoProduto);
+  
+      if (produtoIndex !== -1) {
+        estoqueItem.produtos[produtoIndex].quantidade += Quantidade;
+        await estoqueItem.save();
+  
+        if (req.user) {
+          const userId = req.user._id;
+          const logEstoque = await LogEstoque.create({
+            user_id: userId,
+            estoque_id_impactado: estoqueItem.id,
+            action: `Adição de ${Quantidade} unidades do produto '${IDdoProduto}' ao estoque na sala '${Sala}' pelo usuário [${userId}]`
+          });
+        }
+  
+        return res.status(200).json({ message: 'Produto adicionado ao estoque com sucesso', estoque: estoqueItem });
+      } else {
+        return res.status(404).json({ message: 'Produto não encontrado no estoque' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao adicionar produto ao estoque', error: error.message });
+    }
+  },  
   getAll: async (req, res) => {
     try {
       const estoqueItens = await Estoque.find();

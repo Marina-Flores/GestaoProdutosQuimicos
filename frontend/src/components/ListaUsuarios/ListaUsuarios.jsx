@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/listagemDeUsuarios.css';
-import Header from '../components/Header/Header.jsx';
+import './listaUsuarios.css';
+import Header from '../Header/Header';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import Footer from '../components/Footer/Footer.jsx';
 
-export default function ListagemUsuarios (props) {
+const ListaUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [filtros, setFiltros] = useState({
     ativo: false,
@@ -147,12 +146,12 @@ export default function ListagemUsuarios (props) {
                   <p className='item-usuario-cargo'>{usuario.cargo}</p>
                   <p className='item-usuario-matricula'>{usuario.matricula}</p>
                   <div className='item-usuario-acoes'>
-                        <a>
+                        <button>
                             <FontAwesomeIcon icon={faEdit} className='icone icone-edicao' />
-                        </a>
-                        <a>
+                        </button>
+                        <button>
                             <FontAwesomeIcon icon={faTrash} className='icone icone-delecao' />
-                        </a>
+                        </button>
                     </div>
                   {/* Adicione as ações do usuário aqui */}
                 </li>
@@ -160,17 +159,13 @@ export default function ListagemUsuarios (props) {
             </ul>
 
             <div className='botoes-paginacao'>
-            <button className='pagina-anterior pointer'>
-                                <i class="fa-solid fa-chevron-left"></i> Anterior
-                            </button>
-                            <button className='proxima-pagina pointer'>
-                                Próxima <i class="fa-solid fa-chevron-right"></i>
-                            </button>
+              {/* Adicione os botões de paginação aqui */}
             </div>
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
+
+export default ListaUsuarios;

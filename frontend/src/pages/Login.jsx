@@ -49,7 +49,7 @@ export default function Login() {
         const btnPopup = document.querySelector(".btnLogin-popup");
         const linkInicio = document.querySelector(".linkInicio");
         const btnClose = document.querySelector(".icon-close");
-        
+        const wrapperinit = document.querySelector(".wrapper-init");
 
     
         registerLink.addEventListener('click', () => {
@@ -62,10 +62,13 @@ export default function Login() {
 
         btnPopup.addEventListener('click', () => {
             wrapper.classList.add('active-popup');
+            wrapperinit.classList.add('active-popup');
         });
 
         linkInicio.addEventListener('click', () => {
             wrapper.classList.remove('active-popup');
+            wrapperinit.classList.remove('active-popup');
+
         });       
         btnClose.addEventListener('click', () => {
             wrapper.classList.remove('active-popup');
@@ -82,9 +85,13 @@ export default function Login() {
 
             btnPopup.removeEventListener('click', () => {
                 wrapper.classList.add('active-popup');
+                wrapperinit.classList.add('active-popup');
+
             });
             linkInicio.removeEventListener('click', () => {
                 wrapper.classList.remove('active-popup');
+                wrapperinit.classList.remove('active-popup');
+
             });
             btnClose.removeEventListener('click', () => {
                 wrapper.classList.remove('active-popup');
@@ -162,19 +169,19 @@ export default function Login() {
                         </form>
                     </div>
                 </div>
-            </div>
-            {/* <div className="wrapper-init">
-                <img className='igminit' src={imginit} alt="Imagem Inicial"/>   
-                <div className="init-body">
-                    <h1>
-                    GESTÃO DE PRODUTOS <br></br>QUIMICOS
-                    </h1>
-                    <br></br>
-                    <h2>
-                    Sistema  de  Gestão  de  Produtos  Químicos
-                    </h2>
-                </div>      
-            </div> */}
+                <div className="wrapper-init">
+                    <img className='igminit' src={imginit} alt="Imagem Inicial"/>   
+                    <div className="init-body">
+                        <h1>
+                        GESTÃO DE PRODUTOS <br></br>QUIMICOS
+                        </h1>
+                        <br></br>
+                        <h2>
+                        Sistema  de  Gestão  de  Produtos  Químicos
+                        </h2>
+                    </div>      
+                </div>
+            </div>          
         </div>
     )
 }
