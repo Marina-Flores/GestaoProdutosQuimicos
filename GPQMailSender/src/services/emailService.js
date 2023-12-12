@@ -1,14 +1,18 @@
 const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const apiKey = process.env.SENDGRID_API_KEY;
+const from = process.env.SENDGRID_EMAIL;
+const templateId = process.env.SENGRID_TEMPLATE;
+
+sgMail.setApiKey(apiKey);
 
 const enviarEmail = async (destinatario) => {
 
     const msg = {
         to: destinatario,
-        from: 'mlbtf@discente.ifpe.edu.br',
-        templateId: 'd-a1ada49d3f59433998f5613494237ac2',
+        from: from,
+        templateId: templateId,
         dynamicTemplateData: {
             urlBotao: 'https://localhost:3000/',
         }
