@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import '../styles/Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -99,6 +99,34 @@ export default function Login() {
         };
     }, []); 
 
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log("clicou");
+        try {
+            const response = await fetch('http://localhost:3001/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, senha }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('Login bem-sucedido', data.accessToken);
+                // Aqui você pode realizar ações após o login bem-sucedido
+            } else {
+                console.log('Credenciais inválidas');
+            }
+        } catch (error) {
+            console.error('Erro ao tentar fazer login:', error);
+        }
+    };
+
     return (
         <div className="App">
             <header>
@@ -117,15 +145,15 @@ export default function Login() {
                     </span>
                     <div className="form-box login">
                         <h2>Login</h2>
-                        <form action="#">
+                        <form onSubmit={handleSubmit} action="#">
                             <div className="input-box">
                                 <span className="icon"><EmailIcon /> </span>
-                                <input type="email" required></input>
+                                <input type="email" required onChange={(e) => setEmail(e.target.value)}></input>
                                 <label>Email</label>
                             </div>
                             <div className="input-box">
                                 <span className="icon password"><Password /> </span>
-                                <input type="password" required></input>
+                                <input type="password" required onChange={(e) => setSenha(e.target.value)}></input>
                                 <label>Senha</label>
                             </div>
                             <div className="remember-forgot">
