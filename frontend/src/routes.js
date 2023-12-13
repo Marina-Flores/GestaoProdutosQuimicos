@@ -22,6 +22,7 @@ export default function WebRoute() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/cadastrar-produtos" element={<CadastroDeProdutos />} />
                 <Route path="/cadastrar-usuario" element={<CadastroDeUsuarios />} />
+                <Route path="/editar-usuario/:id" element={<CadastroDeUsuarios />} />
                 <Route path="/listar-usuarios" element={<ListagemDeUsuarios />} />
                 <Route path="/listar-produtos" element={<ListagemDeProdutos />} />
                 <Route path="/cadastrar-aula" element={<CadastroDeAulas />} />
