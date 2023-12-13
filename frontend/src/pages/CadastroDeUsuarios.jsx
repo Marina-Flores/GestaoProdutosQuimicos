@@ -18,7 +18,26 @@ export default function CadastroDeUsuarios(props) {
         }
 
         verificarUsuarioLogado();
+
+const cadastrarUsuario = async (usuario) => {
+    try {
+        const response = await fetch('http://localhost:3000/api/users', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(usuario)
+        })
+
+        if(response.status == 201) {
+            navigate('../listar-usuarios');
+        }
+    } catch (error) {
         
+    }
+
+}
+
         var btnSalvar = document.getElementById('btn-salvar');
         btnSalvar.onclick = function () {
             var contador = 0;
@@ -71,7 +90,15 @@ export default function CadastroDeUsuarios(props) {
             }
 
             if(contador == 5) {
-                // Fazer a lógica de cadastro de usuário
+                var usuario = {
+                    nome: nome.value,
+                    email: email.value,
+                    senha: senha.value,
+                    matricula: matricula.value,
+                    cargo: cargo.value
+                }
+
+                cadastrarUsuario(usuario);
             }
         }
     })
