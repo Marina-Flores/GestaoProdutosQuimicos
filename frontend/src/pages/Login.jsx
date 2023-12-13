@@ -104,9 +104,8 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("clicou");
         try {
-            const response = await fetch('http://localhost:3001/api/login', {
+            const response = await fetch('http://localhost:3000/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -119,11 +118,19 @@ export default function Login() {
             if (response.ok) {
                 console.log('Login bem-sucedido', data.accessToken);
                 // Aqui você pode realizar ações após o login bem-sucedido
+
+                var usuarioInfo = {
+                    email: email,
+                    token: data.accessToken //Utilizar para fazer requisições
+                };
+
+                sessionStorage.setItem("infoUsuario", JSON.stringify(usuarioInfo));
+
             } else {
                 console.log('Credenciais inválidas');
             }
         } catch (error) {
-            console.error('Erro ao tentar fazer login:', error);
+            console.error('Erro ao tentar fazer login:', error.message);
         }
     };
 

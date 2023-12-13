@@ -2,9 +2,23 @@ import React, { useEffect } from 'react';
 import Header from '../components/Header/Header.jsx';
 import Footer from '../components/Footer/Footer.jsx';
 import '../styles/cadastroDeUsuarios.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function CadastroDeUsuarios(props) {
+    const navigate = useNavigate();
+    
     useEffect(() => {
+        const verificarUsuarioLogado = () => {
+            var dadosJson = sessionStorage.getItem("infoUsuario")
+            var dados = JSON.parse(dadosJson);
+
+            if(dados == null) {
+                navigate('../');
+            }
+        }
+
+        verificarUsuarioLogado();
+        
         var btnSalvar = document.getElementById('btn-salvar');
         btnSalvar.onclick = function () {
             var contador = 0;

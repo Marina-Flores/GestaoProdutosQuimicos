@@ -2,18 +2,36 @@ import React, { useState, useEffect } from 'react';
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import Checkbox from "../components/checkbox/Checkbox";
-import { redirectDocument } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function CadastroDeAulas(props) {
     const [produtos, setProdutos] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        const verificarUsuarioLogado = () => {
+            var dadosJson = sessionStorage.getItem("infoUsuario")
+            var dados = JSON.parse(dadosJson);
+
+            if(dados == null) {
+                navigate('../');
+            }
+        }
+
+        verificarUsuarioLogado();
+
         const obterProdutos = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/produtos')
+                const response = await fetch('http://localhost:3000/api/produtos',{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMCIsImlhdCI6MTcwMjQ3NzgwNCwiZXhwIjoxNzAyNDk1ODA0fQ.FlxNjVN5s2uR9V5VNQfSIu-v9s1D7wEWuscHq4agqnI`,
+                    }
+            });
                 const data = await response.json()
 
-                setProdutos(data)
+                setProdutos(data);
 
             } catch (error) {
                 console.log(error.message)
@@ -42,17 +60,15 @@ export default function CadastroDeAulas(props) {
                 const response = await fetch('http://localhost:3000/api/aula', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMCIsImlhdCI6MTcwMjQ3NzgwNCwiZXhwIjoxNzAyNDk1ODA0fQ.FlxNjVN5s2uR9V5VNQfSIu-v9s1D7wEWuscHq4agqnI`,
                     },
                     body: JSON.stringify(aula)
-            })
-
+            });
             const json = await response.json()
 
             if(response.status == 201) {
-                this.props.history.push('./listar-produtos');
-            } else {
-                //exibir mensagem de "erro"
+                navigate('../listar-produtos');
             }
 
             } catch(error) {
@@ -144,9 +160,9 @@ export default function CadastroDeAulas(props) {
                     <div>
                         <p className="label" id='label-produtos-aula'>Produtos</p>
 
-                        {produtos.map((p, index) => (
+                        {Array.isArray(produtos) ? produtos.map((p, index) => (
                             <Checkbox name={p.nome} key={index} value={p._id} nameElement={"produtos"} />
-                        ))}
+                        )) : ""}
                     </div>
 
                     <button className='btn-salvar pointer' id='btn-salvar'>Salvar</button>

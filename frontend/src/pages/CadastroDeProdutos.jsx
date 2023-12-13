@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import NotificationModal from '../components/notification/NotificationModal'
-
+import { useNavigate } from 'react-router-dom';
 import '../styles/cadastroDeProdutos.css';
 
 export default function CadastroDeProdutos(props) {
@@ -18,6 +18,7 @@ export default function CadastroDeProdutos(props) {
         fisqp: null,
         sala: '',
     });
+    const navigate = useNavigate();
 
     const [notification, setNotification] = useState(null);
 
@@ -29,6 +30,18 @@ export default function CadastroDeProdutos(props) {
         }));
     };
     
+    useEffect(() => {
+        const verificarUsuarioLogado = () => {
+            var dadosJson = sessionStorage.getItem("infoUsuario")
+            var dados = JSON.parse(dadosJson);
+
+            if(dados == null) {
+                navigate('../');
+            }
+        }
+
+        verificarUsuarioLogado();
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();

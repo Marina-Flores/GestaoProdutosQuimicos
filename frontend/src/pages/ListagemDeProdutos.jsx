@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import Checkbox from '../components/checkbox/Checkbox';
@@ -10,8 +10,20 @@ export default function ListagemDeProdutos(props) {
   const [produtos, setProdutos] = useState([]);
   const [paginaAtual, setPaginaAtual] = useState(1);
   const produtosPorPagina = 10;
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const verificarUsuarioLogado = () => {
+      var dadosJson = sessionStorage.getItem("infoUsuario")
+      var dados = JSON.parse(dadosJson);
+
+      if(dados == null) {
+          navigate('../');
+      }
+  }
+
+  verificarUsuarioLogado();
+
     // Função para buscar os produtos do backend
     const fetchProdutos = async () => {
       try {
@@ -20,7 +32,7 @@ export default function ListagemDeProdutos(props) {
         const data = await response.json();
         setProdutos(data); // Atualiza o estado com os produtos obtidos
       } catch (error) {
-        console.error('Erro ao buscar produtos:', error);
+        console.error('Erro ao buscar produtos:', error.message);
       }
     };
 
