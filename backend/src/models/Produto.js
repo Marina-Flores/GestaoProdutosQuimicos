@@ -45,6 +45,10 @@ const ProdutoSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+    fispq: {
+        type: String,
+        required: true
+    }
 });
 
 ProdutoSchema.pre('save', async function (next) {

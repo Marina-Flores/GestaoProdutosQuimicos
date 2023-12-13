@@ -43,7 +43,7 @@ const UserIcon = () => (
 
 export default function Login() {
 
-    const [redirecionar, setRedirecionar] = useState(false); // Estado para controle do redirecionamento
+    const [redirecionar, setRedirecionar] = useState(false); 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -105,7 +105,7 @@ export default function Login() {
 
     useEffect(() => {
         if (redirecionar) {
-            navigate('/listar-produtos'); // Redireciona para a rota '/listar-produtos'
+            navigate('/listar-produtos'); 
         }
     }, [redirecionar, navigate]);
 
@@ -115,9 +115,8 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("clicou");
         try {
-            const response = await fetch('http://localhost:3001/api/login', {
+            const response = await fetch('http://localhost:3000/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -127,17 +126,22 @@ export default function Login() {
 
             const data = await response.json();
 
-            console.log(data);
             if (data.message == "Credenciais inválidas") {
-                console.log('Credenciais inválidas');
                 setCredenciaisInvalidas(true);
                
             } else {
-                console.log('Login bem-sucedido', data.accessToken);
+                var usuarioInfo = {
+                    email: email,
+                    token: data.accessToken 
+                };
+
+                sessionStorage.setItem("infoUsuario", JSON.stringify(usuarioInfo));
                 setRedirecionar(true);
-            }
+
+
+            } 
         } catch (error) {
-            console.error('Erro ao tentar fazer login:', error);
+            console.error('Erro ao tentar fazer login:', error.message);
         }
     };
 
@@ -159,12 +163,10 @@ export default function Login() {
             const data = await response.json();
             console.log(data.message);
             if (data.message == "Usuário não encontrado.") {
-                console.log("1")
                 setErroEnvio('Usuário não encontrado.');
                 setMensagemEnvio('');
                 
             } else {        
-                console.log("0")
                 setMensagemEnvio('E-mail de recuperação enviado com sucesso!');
                 setErroEnvio('');
             }

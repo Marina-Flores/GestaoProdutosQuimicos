@@ -5,6 +5,7 @@ import Header from '../components/Header/Header.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer/Footer.jsx';
+import { useNavigate } from 'react-router-dom';
 
 export default function ListagemUsuarios (props) {
   const [usuarios, setUsuarios] = useState([]);
@@ -14,8 +15,20 @@ export default function ListagemUsuarios (props) {
     cargoProfessor: false,
     cargoAnalista: false,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const verificarUsuarioLogado = () => {
+      var dadosJson = sessionStorage.getItem("infoUsuario")
+      var dados = JSON.parse(dadosJson);
+
+      if(dados == null) {
+          navigate('../');
+      }
+  }
+
+  verificarUsuarioLogado();
+
     const fetchUsuarios = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/users/all');
