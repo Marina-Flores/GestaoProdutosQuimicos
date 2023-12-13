@@ -39,6 +39,15 @@ header {
     height: 80px;
 }
 
+.logo-esqueci-senha {
+    font-size: 2em;
+    color: #06617D;
+    user-select: none;
+    width: 180px;
+    height: 80px;
+    transform: translateX(-100px);
+}
+
 .igminit {
     display: flex;
     width: 600px;
@@ -137,6 +146,22 @@ header {
     transform: scale(1);
     transition: transform .5s ease, height .2s ease;
     display: none;
+}
+
+.wrapper-esqueci-senha {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: transform .5s ease, height .2s ease;
+    display: flex; 
 }
 
 .wrapper.active-popup{
