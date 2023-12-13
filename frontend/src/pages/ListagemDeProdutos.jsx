@@ -116,6 +116,7 @@ export default function ListagemDeProdutos(props) {
                 {produtosExibidos.map((produto) => (
                   <Produto
                     key={produto.id}
+                    _id={produto.id}
                     name={produto.nome}
                     fisqp={produto.fisqp}
                     classeDeRisco={produto.classeDeRisco}
@@ -129,6 +130,7 @@ export default function ListagemDeProdutos(props) {
                 ))}
                 <Produto
                     key={'091823098'}
+                    _id={'091823098'}
                     name='Álcool 70%'
                     fisqp={null}
                     classeDeRisco={7}

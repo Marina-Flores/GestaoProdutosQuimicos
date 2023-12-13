@@ -4,12 +4,12 @@ const emailService = require('../services/emailService');
 
 const processarEnvios = async () => {
     try{
-        const envios = await Envio.find().exec();
-        console.log(envios);
+        const envios = await Envio.find({ enviado: false }).exec();
+
         envios.forEach(async (envio) => {
             try{
-                const { destinatario, nomeDestinatario } = envio; 
-                const enviadoComSucesso = emailService.enviarEmail(destinatario);
+                const { destinatario, url } = envio; 
+                const enviadoComSucesso = emailService.enviarEmail(destinatario, url);
             
                 if(enviadoComSucesso){
                     envio.enviado = true;

@@ -155,4 +155,6 @@ router.route('/:id').post((req, res) => userController.update(req, res));
  */
 router.route('/:id').delete((req, res) => userController.delete(req, res));
 
+
+
 module.exports = router;

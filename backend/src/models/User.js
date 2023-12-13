@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
     },
     cargo: {
         type: String,
-        enum: ['Professor', 'Analista']
+        enum: ['Professor', 'Técnico de Laboratório', 'Analista']
     },
     senha: {
         type: String,
