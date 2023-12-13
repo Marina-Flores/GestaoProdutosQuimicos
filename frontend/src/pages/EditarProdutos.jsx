@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,  useEffect } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import NotificationModal from '../components/notification/NotificationModal'
 
-import '../styles/cadastroDeProdutos.css';
+import '../styles/editarProdutos.css';
 
-export default function CadastroDeProdutos(props) {
+export default function EditarProdutos(props) {
+    const { id } = useParams();
     const [formData, setFormData] = useState({
         nome_produto: '',
         dataFabricacao: '',
@@ -30,45 +32,62 @@ export default function CadastroDeProdutos(props) {
     };
     
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const url = 'api';
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch(`http://localhost:3001/api/produto/${id}`);
+            if (response.ok) {
+                const produtoData = await response.json();
+                produtoData.dataDeFabricacao = produtoData.dataDeFabricacao.substring(0, 10);
+                produtoData.dataDeValidade = produtoData.dataDeValidade.substring(0, 10);
+                const produto = {
+                    nome_produto: produtoData.nome,
+                    dataFabricacao: produtoData.dataDeFabricacao,
+                    dataValidade: produtoData.dataDeValidade,
+                    ...produtoData
+                };
+              setFormData(produto);
+            } else {
+                setNotification({ message: 'Erro ao requisitar produto!', success: false });
+            }
+          } catch (error) {
+                setNotification({ message: 'Erro de conexão!!', success: false });
+          }
+        };
+    
+        fetchData();
+      }, [id]);
 
+
+    const navigate = useNavigate();
+
+    // enviar solicitaçãpo de edição ao backend
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
         const formDataToSend = new FormData();
         for (const key in formData) {
             formDataToSend.append(key, formData[key]);
         }
 
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                body: formDataToSend,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+        const response = await fetch(`http://localhost:3001/api/users/edit/${id}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+        body: JSON.stringify(formDataToSend),
+        });
 
-            if (response.ok) {
-                // Se a requisição for bem-sucedida, exibe o modal verde
-                setNotification({ message: 'Produto cadastrado com sucesso!', success: true });
-            } else {
-                // Se houver um erro, exibe o modal vermelho
-                setNotification({ message: 'Erro ao cadastrar produto. Tente novamente.', success: false });
-            }
-
-            // Define um timeout para remover o modal após 3 segundos
-            setTimeout(() => {
-                setNotification(null);
-            }, 3000);
-        } catch (error) {
-            setNotification({ message: 'Erro de conexão., Por favor, contate o suporte!', success: false });
-            setTimeout(() => {
-                setNotification(null);
-            }, 3000);
+        if (response.ok) {
+            setNotification({ message: 'Produto editado com sucesso!', success: true });
+        navigate("../listar-produtos"); 
+        } else {
+        setNotification({ message: 'Falha ao editar produto!', success: false });
         }
+    } catch (error) {
+        setNotification({ message: 'Falha ao enviar solicitação!', success: false });
+    }
     };
-
-
 
     return (
         <>
@@ -84,7 +103,7 @@ export default function CadastroDeProdutos(props) {
             <div className="center__container">
                 <div className="form__div">
                     <form onSubmit={handleSubmit}>
-                        <h1>Cadastro de Produto Químico</h1>
+                        <h1>Edição de Produto Químico</h1>
 
                         <label htmlFor="nome_produto">Nome do produto</label>
                         <input

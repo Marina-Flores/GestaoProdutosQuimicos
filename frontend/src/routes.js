@@ -11,7 +11,7 @@ import CadastroDeProdutos from './pages/CadastroDeProdutos';
 import CadastroDeUsuarios from './pages/CadastroDeUsuarios';
 import ListagemDeProdutos from './pages/ListagemDeProdutos';
 import ListagemDeUsuarios from './pages/ListagemDeUsuarios';
-
+import EditarProdutos from "./pages/EditarProdutos";
 
 export default function WebRoute() {
     return (
@@ -23,6 +23,7 @@ export default function WebRoute() {
                 <Route path="/cadastrar-usuario" element={<CadastroDeUsuarios />} />
                 <Route path="/listar-usuarios" element={<ListagemDeUsuarios />} />
                 <Route path="/listar-produtos" element={<ListagemDeProdutos />} />
+                <Route path="/editar-produto/:id" element={<EditarProdutos />} />
             </Routes>
         </BrowserRouter>
     );

@@ -4,6 +4,7 @@
     padding: 0;
     flex-direction: row;
     flex-wrap: nowrap;
+    justify-content: center;
     width: 100%;
     height: 60px;
     background-color: var(--white);
@@ -14,8 +15,8 @@
 
 .container__produto .left {
     display: block;
-    width: 350px;
-    height: 50px;
+    width: 200px;
+    height: 60px;
     align-items: center;
     margin-left: 1rem;
     display: flex;
@@ -23,6 +24,8 @@
     flex-wrap: nowrap;    
     justify-content: space-between;
     align-items: center;
+    font-size: .8rem;
+    text-align: center;
 }
 
 
@@ -30,65 +33,67 @@
     width: 3px;
     height: 44px;
     background-color: var(--gray);
-    margin-right: .3rem;
+    margin-right: .5rem;    
 }
 
-.container__produto .right {    
+.container__produto .right {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;   
+    align-items: center;
+    margin-left: .4rem;
+}
+
+.container__produto .all__prod {    
+    margin-left: 4rem;
     width: 470px;
     height: 50px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
+    font-size: .7rem;
+    color: var(--black);
+    text-align: center;
+    gap: 2rem;
 }
 
-.container__produto .right > div {
-    width: 100px;
-}
 
-.container__produto .right .produto__controlado {
-    margin-right: -3.5rem;
-    margin-left: 4.5rem;
+.container__produto .right .produto__quantidade{
+    font-size: .9rem;
+    color: var(--blue);
+    width: 20px;
+    height: auto;
 }
-
-.produto__classe__de__risco {
-    text-align: center;    
-    margin-left: 1rem;
-    border-radius: 12px;
-}
-
-.produto__classe__de__risco.vermelho {
-    background-color: var(--red);
-    color: var(--white);
-}
-
-.produto__classe__de__risco.azul {
-    background-color: var(--light-blue);
-}
-
-.produto__classe__de__risco.cinza {
-    background-color: var(--gray);
-    color: var(--white);
-}
-
-.produto__classe__de__risco.verde {
-    background-color: var(--green);
-}
-
-.produto__classe__de__risco.amarelo {
-    background-color: var(--yellow);
-}
-
 
 .fisqp__blue__icon {
     font-size: 1.4rem;
     color: var(--blue);
     cursor: pointer;
+    max-width: 30px;
 }
 
 .fisqp__gray__icon {
     font-size: 1.4rem;
     color: var(--gray);
     cursor: pointer;   
+    max-width: 30px;
+}
+
+.produto__button {
+    display: flex;
+    justify-content: center;
+    margin-inline: 1.5rem;
+    background-color: var(--white);
+    width: 50px;
+    height: 60px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--blue);
+    border: none;
+    border-radius: 8px;
+    align-items: center;
+    text-align: center;
 }

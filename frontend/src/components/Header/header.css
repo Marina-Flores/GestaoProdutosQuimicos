@@ -50,6 +50,7 @@ header .left {
 
 .list ul li {
     margin: .4rem;
+    min-width: 130px;
 }
 
 .list ul li .a__link {
