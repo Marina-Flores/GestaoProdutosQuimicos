@@ -181,9 +181,8 @@ export default function CadastroDeProdutos(props) {
 
                         <label htmlFor="fisqp">FISQP</label>
                         <input
-                            type="file"
+                            type="text"
                             name="fisqp"
-                            accept=".doc, .docx, .pdf"
                             onChange={handleChange}
                         />
 
