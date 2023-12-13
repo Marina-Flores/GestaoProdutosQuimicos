@@ -1,6 +1,7 @@
 import React from "react";
 
 import './produto.css';
+import { Link } from "react-router-dom";
     
 export default function Produto(props) {
     return (
@@ -37,9 +38,11 @@ export default function Produto(props) {
                     </div>
                 </div>
             </div>
-            <div className="produto__button">
-                <i class="fa-solid fa-pen-to-square"></i>
-            </div>
+            <Link to={`../editar-produto/${props._id}`}>
+                <div className="produto__button">
+                    <i className="fa-solid fa-pen-to-square"></i>
+                </div>
+            </Link>
         </div>
     );
 };
