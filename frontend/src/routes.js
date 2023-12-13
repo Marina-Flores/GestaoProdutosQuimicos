@@ -6,6 +6,7 @@ import {
   } from "react-router-dom";
   
 import Login from './pages/Login';
+import EsqueciSenha from './pages/EsqueciSenha';
 // import Home from './pages/Home';
 import CadastroDeProdutos from './pages/CadastroDeProdutos';
 import CadastroDeUsuarios from './pages/CadastroDeUsuarios';
@@ -19,6 +20,7 @@ export default function WebRoute() {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/recuperar-senha" element={<EsqueciSenha />} />
                 <Route path="/cadastrar-produtos" element={<CadastroDeProdutos />} />
                 <Route path="/cadastrar-usuario" element={<CadastroDeUsuarios />} />
                 <Route path="/listar-usuarios" element={<ListagemDeUsuarios />} />
