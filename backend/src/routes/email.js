@@ -74,4 +74,37 @@ router.route('/enviar-email').post(EmailController.enviarEmail);
  */
 router.route('/validar-token').get(EmailController.validarToken);
 
+/**
+ * @swagger
+ * /api/recuperar-senha/trocar-senha:
+ *   post:
+ *     summary: Atualiza a senha do usuário.
+ *     description: Atualiza a senha do usuário com base no token fornecido.
+ *     tags: [RecuperarSenha]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: Token de autenticação do usuário.
+ *               novaSenha:
+ *                 type: string
+ *                 format: password
+ *                 description: Nova senha do usuário.
+ *     responses:
+ *       '200':
+ *         description: Senha atualizada com sucesso.
+ *       '400':
+ *         description: Requisição inválida (por exemplo, campos ausentes).
+ *       '404':
+ *         description: Usuário não encontrado.
+ *       '500':
+ *         description: Erro interno no servidor.
+ */
+router.route('/trocar-senha').post((req, res) => EmailController.trocarSenha(req, res));
+
 module.exports = router;

@@ -35,25 +35,19 @@ const enviarEmailRecuperarSenha = async (email) => {
 };
 
 const validarToken = async (token) => {
-    try {
-        if (!token) {
-            return { message: 'Token não encontrado.' };
-          }
-      
-          jwt.verify(token, secret, (err, decoded) => {
-            if (err) {
-                return { message: 'Token inválido.' };
-            }
-      
-            const userId = decoded.userId;
-            console.log(userId);
-            return { message: 'Token validado com sucesso.', userId };
-        });
-    } catch (error) {
-        console.error('Erro ao validar token:', error);
-        throw new Error('Erro interno no servidor.');
-    }
-  };
+  try {
+    let userId = 0;
+
+    jwt.verify(token, secret, (err, decoded) => {
+      userId = decoded.userId;
+    });
+
+    return userId;
+  } catch (error) {
+    console.error('Erro ao validar token:', error);
+    throw new Error('Erro interno no servidor.');
+  }
+};
 
 module.exports = {
   enviarEmailRecuperarSenha,

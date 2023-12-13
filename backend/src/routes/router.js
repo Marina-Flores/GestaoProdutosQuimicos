@@ -11,7 +11,7 @@ const emailRouter = require('./email');
 
 const verifyToken = require('../middlewares/authMiddleware');
 
-router.use('/users', usersRouter);
+router.use('/users', verifyToken, usersRouter);
 router.use('/produtos', verifyToken, produtosRouter);
 router.use('/estoque', verifyToken, estoqueRouter);
 router.use('/log/produtos', verifyToken, logProdutosRouter);

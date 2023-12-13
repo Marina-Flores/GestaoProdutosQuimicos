@@ -4,7 +4,7 @@ const emailService = require('../services/emailService');
 
 const processarEnvios = async () => {
     try{
-        const envios = await Envio.find({ Enviado: false }).exec();
+        const envios = await Envio.find({ enviado: false }).exec();
 
         envios.forEach(async (envio) => {
             try{

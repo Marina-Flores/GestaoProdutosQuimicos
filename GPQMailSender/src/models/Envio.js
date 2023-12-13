@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const envioSchema = new mongoose.Schema({
+    _id: {
+        type: Number, 
+        unique: true,
+        required: true,
+        default: 0,
+    },
     destinatario: {
         type: String, 
         require: true
