@@ -20,7 +20,7 @@ export default function WebRoute() {
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/esqueci-senha" element={<EsqueciSenha />} />
+                <Route path="/recuperar-senha" element={<EsqueciSenha />} />
                 <Route path="/cadastrar-produtos" element={<CadastroDeProdutos />} />
                 <Route path="/cadastrar-usuario" element={<CadastroDeUsuarios />} />
                 <Route path="/listar-usuarios" element={<ListagemDeUsuarios />} />

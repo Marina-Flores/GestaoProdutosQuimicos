@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import '../styles/Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -8,7 +9,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 import logo from '../assets/img/logo.png'; 
-import imginit from '../assets/img/init-img.png'; 
+
 
 const EmailIcon = () => (
 
@@ -44,18 +45,15 @@ export default function EsqueciSenha() {
 
     useEffect(() => {
         const wrapper = document.querySelector(".wrapper");
-        const loginLink = document.querySelector(".login-link");
-        const registerLink = document.querySelector(".register-link");
-        const btnPopup = document.querySelector(".btnLogin-popup");
-        const linkInicio = document.querySelector(".linkInicio");
-        const btnClose = document.querySelector(".icon-close");
-        const wrapperinit = document.querySelector(".wrapper-init");
 
   
     }, []); 
+    const location = useLocation();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordMatch, setPasswordMatch] = useState(true);
+    const [mensagem, setMensagem] = useState('');
+    
   
     const handlePasswordChange = (e) => {
       setPassword(e.target.value);
@@ -65,10 +63,41 @@ export default function EsqueciSenha() {
       setConfirmPassword(e.target.value);
     };
   
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
+      const searchParams = new URLSearchParams(location.search);
+      const token = searchParams.get('token');
+      console.log(token);
       if (password === confirmPassword) {
-        // Senhas coincidem, pode prosseguir com a lógica de envio
+       if (token) {         
+                try {
+                    const response = await fetch('http://localhost:3001/api/user/trocarSenha', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ token, newPassword: password }),
+                    });
+
+                    const data = await response.json();
+                    console.log('Resposta da atualização de senha:', data);
+
+                    if (data.response=="Usuário não encontrado") {
+                        setMensagem('Erro ao atualizar a senha.'); // Mensagem de erro
+
+                    } else {
+                        setMensagem('Senha atualizada com sucesso!'); // Mensagem de sucesso
+
+                    }
+   
+                } catch (error) {
+                    console.error('Erro ao tentar atualizar a senha:', error);
+                    setMensagem('Erro ao tentar atualizar a senha.');
+                }
+            }
+            else{
+                setMensagem('Token não válido.');
+            }
         setPasswordMatch(true);
       } else {
         setPasswordMatch(false);
@@ -107,10 +136,18 @@ export default function EsqueciSenha() {
                 />
                 <label>Confirmar Senha</label>
               </div>
+              <button type="submit" className="btn">Salvar</button>
               {!passwordMatch && (
                 <p className="confirma-senhas" style={{ color: 'red' }}>As senhas não coincidem.</p>
               )}
-              <button type="submit" className="btn">Salvar</button>
+              <div className="mensagem-envio">
+              {mensagem && (
+                
+                    <p className={mensagem.includes('Erro') ? 'mensagem-erro' : 'mensagem-sucesso'}>
+                        {mensagem}
+                    </p>
+                )}
+                </div>
             </form>
           </div>
         </div>

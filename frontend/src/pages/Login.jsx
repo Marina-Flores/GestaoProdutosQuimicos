@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate  } from 'react-router-dom'; 
 import '../styles/Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -41,6 +42,9 @@ const UserIcon = () => (
 
 
 export default function Login() {
+
+    const [redirecionar, setRedirecionar] = useState(false); // Estado para controle do redirecionamento
+    const navigate = useNavigate();
 
     useEffect(() => {
         const wrapper = document.querySelector(".wrapper");
@@ -99,8 +103,15 @@ export default function Login() {
         };
     }, []); 
 
+    useEffect(() => {
+        if (redirecionar) {
+            navigate('/listar-produtos'); // Redireciona para a rota '/listar-produtos'
+        }
+    }, [redirecionar, navigate]);
+
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [credenciaisInvalidas, setCredenciaisInvalidas] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -116,14 +127,51 @@ export default function Login() {
 
             const data = await response.json();
 
-            if (response.ok) {
-                console.log('Login bem-sucedido', data.accessToken);
-                // Aqui você pode realizar ações após o login bem-sucedido
-            } else {
+            console.log(data);
+            if (data.message == "Credenciais inválidas") {
                 console.log('Credenciais inválidas');
+                setCredenciaisInvalidas(true);
+               
+            } else {
+                console.log('Login bem-sucedido', data.accessToken);
+                setRedirecionar(true);
             }
         } catch (error) {
             console.error('Erro ao tentar fazer login:', error);
+        }
+    };
+
+    const [emailRecuperacao, setEmailRecuperacao] = useState('');
+    const [mensagemEnvio, setMensagemEnvio] = useState('');
+    const [erroEnvio, setErroEnvio] = useState('');
+
+    const handleSubmitRecuperacaoSenha = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:3001/api/recuperar-senha/enviar-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: emailRecuperacao }),
+            });
+
+            const data = await response.json();
+            console.log(data.message);
+            if (data.message == "Usuário não encontrado.") {
+                console.log("1")
+                setErroEnvio('Usuário não encontrado.');
+                setMensagemEnvio('');
+                
+            } else {        
+                console.log("0")
+                setMensagemEnvio('E-mail de recuperação enviado com sucesso!');
+                setErroEnvio('');
+            }
+        } catch (error) {
+            console.error('Erro ao tentar enviar e-mail de recuperação:', error);
+            setErroEnvio('Erro ao tentar enviar e-mail de recuperação');
+            setMensagemEnvio('');
         }
     };
 
@@ -161,38 +209,31 @@ export default function Login() {
                                 <a href="#" className="register-link">Esqueceu a Senha?</a>
                             </div>
                             <button type="submit" className="btn">Entrar</button>
-
+                            <div className="mensagem-envio">
+                            {credenciaisInvalidas && <p className="mensagem-erro">Credenciais inválidas. Por favor, verifique seu email e senha.</p>}
+                            </div>
                         </form>
                     </div>
                     <div className="form-box register">
-                        <h2 className="title-recuperacao">Esqueceu a Senha?</h2>
-                        <form action="#">
-                            {/* <div className="input-box">
-                                <span className="icon"><UserIcon /> </span>
-                                <input type="text" required></input>
-                                <label>Nome do Usuário</label>
-                            </div> */}
+                        <h2 className="title-recuperacao">Esqueceu a Senha?</h2>                    
+                        <form onSubmit={handleSubmitRecuperacaoSenha} action="#">
                             <div className="input-box">
                                 <span className="icon"><EmailIcon /> </span>
-                                <input type="email" required></input>
+                                <input
+                                    type="email"
+                                    required
+                                    value={emailRecuperacao}
+                                    onChange={(e) => setEmailRecuperacao(e.target.value)}
+                                ></input>
                                 <label>Email de Recuperação</label>
                             </div>
-                            {/* <div className="input-box">
-                                <span className="icon password"><Password /> </span>
-                                <input type="password" required></input>
-                                <label>Senha</label>
-                            </div>                      
-                            <div className="input-box">
-                                <span className="icon password"><Password /> </span>
-                                <input type="password" required></input>
-                                <label>Confirmar Senha</label>
-                            </div>
-                            <div className="remember-forgot">
-                                <label><input type="checkbox"></input>Eu concordo com os Termos de Uso</label>
-                            </div> */}
                             <button type="submit" className="btn">Enviar</button>
                             <div className="login-register">
                                 <p>Conta recuperada? <a href="#" className="login-link">Voltar</a></p>
+                            </div>
+                            <div className="mensagem-envio">
+                                {mensagemEnvio && <p className="mensagem-sucesso">{mensagemEnvio}</p>}
+                                {erroEnvio && <p className="mensagem-erro">{erroEnvio}</p>}
                             </div>
                         </form>
                     </div>

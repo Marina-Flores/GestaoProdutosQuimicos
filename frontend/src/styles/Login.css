@@ -339,3 +339,25 @@ header {
    text-decoration: underline;
 }
 
+.mensagem-envio{
+    padding-top: 10px;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mensagem-sucesso{
+    color: green;
+}
+
+.mensagem-erro{
+    color: red;
+}
+.confirma-senhas {
+    font-size: 0.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
