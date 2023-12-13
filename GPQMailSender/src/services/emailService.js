@@ -1,46 +1,31 @@
+const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
-const nodemailer = require('nodemailer');
-const handlebars = require('handlebars');
-const fs = require('fs');
+const apiKey = process.env.SENDGRID_API_KEY;
+const from = process.env.SENDGRID_EMAIL;
+const templateId = process.env.SENGRID_TEMPLATE;
 
-const emailService = process.env.EMAIL_SERVICE;
-const emailUser = process.env.EMAIL_USER;
-const emailPass = process.env.EMAIL_PASS;
+sgMail.setApiKey(apiKey);
 
-const enviarEmail = (destinatario, nomeDestinatario) => {
-    const transporter = nodemailer.createTransport({
-        service: emailService,
-        auth: {
-            user: emailUser,
-            pass: emailPass
-        }
-    });
-    
-    const source = fs.readFileSync('../templates/esqueciMinhaSenha.handlebars', 'utf8');
-    const template = handlebars.compile(source);
-    
-    const data = {
-        nome: nomeDestinatario,
-        url: 'http://localhost:3000/recuperar-senha'
-    };
+const enviarEmail = async (destinatario, url) => {
 
-    const htmlEmail = template(data);
-
-    const mailOptions = {
-        from: emailUser, 
+    const msg = {
         to: destinatario,
-        subject: 'Recuperação de Senha',
-        html: htmlEmail
+        from: from,
+        templateId: templateId,
+        dynamicTemplateData: {
+            urlBotao: url,
+        }
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error('Erro ao enviar e-mail:', error);
-          } else {
-            console.log('E-mail enviado:', info.response);
-          }
-    })
+    try {
+        await sgMail.send(msg);
+        console.log('E-mail enviado com sucesso!');
+        return true;
+    } catch (error) {
+        console.error('Erro ao enviar e-mail:', error);
+        return false;
+    }
+};
 
-}
-
+module.exports = { enviarEmail };

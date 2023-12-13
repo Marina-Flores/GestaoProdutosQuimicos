@@ -11,7 +11,7 @@ const userController = {
             const hashedPassword = await bcrypt.hash(senha, 10); 
             const newUser = await User.create({ ...userData, senha: hashedPassword });
             const userId = req.user._id;
-            const logUser = await LogUser.create({
+            await LogUser.create({
                 user_id: userId,
                 user_id_impactado: newUser.id,
                 action: `Usuário '${newUser.nome} [${newUser.id}]' criado pelo usuário [${userId}]`
