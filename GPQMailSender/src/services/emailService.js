@@ -7,14 +7,14 @@ const templateId = process.env.SENGRID_TEMPLATE;
 
 sgMail.setApiKey(apiKey);
 
-const enviarEmail = async (destinatario) => {
+const enviarEmail = async (destinatario, url) => {
 
     const msg = {
         to: destinatario,
         from: from,
         templateId: templateId,
         dynamicTemplateData: {
-            urlBotao: 'https://localhost:3000/',
+            urlBotao: url,
         }
     };
 
