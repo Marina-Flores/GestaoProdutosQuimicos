@@ -71,7 +71,7 @@ export default function EsqueciSenha() {
       if (password === confirmPassword) {
        if (token) {         
                 try {
-                    const response = await fetch('http://localhost:3001/api/user/trocarSenha', {
+                    const response = await fetch('http://localhost:3002/api/recuperar-senha/trocar-senha', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

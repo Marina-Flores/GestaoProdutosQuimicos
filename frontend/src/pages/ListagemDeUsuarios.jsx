@@ -31,7 +31,7 @@ export default function ListagemUsuarios (props) {
 
     const fetchUsuarios = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/users/all');
+        const response = await fetch('http://localhost:3002/api/users/all');
         if (response.ok) {
           const data = await response.json();
           setUsuarios(data.safeUsers || []);

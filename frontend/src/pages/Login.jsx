@@ -116,7 +116,7 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/api/login', {
+            const response = await fetch('http://localhost:3002/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ export default function Login() {
     const handleSubmitRecuperacaoSenha = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/api/recuperar-senha/enviar-email', {
+            const response = await fetch('http://localhost:3002/api/recuperar-senha/enviar-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

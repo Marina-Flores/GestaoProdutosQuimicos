@@ -22,7 +22,7 @@ export default function CadastroDeAulas(props) {
 
         const obterProdutos = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/produtos',{
+                const response = await fetch('http://localhost:3002/api/produtos',{
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export default function CadastroDeAulas(props) {
 
         const cadastrarAula = async (aula) => {
             try {
-                const response = await fetch('http://localhost:3000/api/aula', {
+                const response = await fetch('http://localhost:3002/api/aula', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

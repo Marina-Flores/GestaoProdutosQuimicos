@@ -11,13 +11,13 @@ const verifyToken = require('../middlewares/authMiddleware');
 const aulaRouter = require('./aula');
 const emailRouter = require('./email');
 
-router.use('/aula', verifyToken, aulaRouter);
-router.use('/produtos', verifyToken, produtosRouter);
+router.use('/aula', aulaRouter);
+router.use('/produtos', produtosRouter);
 router.use('/estoque', verifyToken, estoqueRouter);
 router.use('/log/produtos', verifyToken, logProdutosRouter);
 router.use('/log/users', verifyToken, logUsersRouter);
 router.use('/log/estoque', verifyToken, logEstoqueRouter);
-router.use('/users', verifyToken, usersRouter);
+router.use('/users', usersRouter);
 router.use('/recuperar-senha', emailRouter);
 router.use('/login', loginRouter);
 

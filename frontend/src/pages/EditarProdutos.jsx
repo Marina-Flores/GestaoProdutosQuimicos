@@ -35,7 +35,7 @@ export default function EditarProdutos(props) {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch(`http://localhost:3001/api/produto/${id}`);
+            const response = await fetch(`http://localhost:3002/api/produto/${id}`);
             if (response.ok) {
                 const produtoData = await response.json();
                 produtoData.dataDeFabricacao = produtoData.dataDeFabricacao.substring(0, 10);
@@ -70,7 +70,7 @@ export default function EditarProdutos(props) {
             formDataToSend.append(key, formData[key]);
         }
 
-        const response = await fetch(`http://localhost:3001/api/users/edit/${id}`, {
+        const response = await fetch(`http://localhost:3002/api/users/edit/${id}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'multipart/form-data',
