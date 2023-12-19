@@ -14,18 +14,18 @@ const ProdutoSchema = new mongoose.Schema({
     },
     descricao: {
         type: String,
-        required: true,
+        required: false,
     },
     quantidade: {
         type: Number,
         required: true,
         default: 0,
     },
-    dataDeFabricacao: {
+    dataFabricacao: {
         type: Date,
         required: true,
     },
-    dataDeValidade: {
+    dataValidade: {
         type: Date,
         required: true,
     },
@@ -47,6 +47,10 @@ const ProdutoSchema = new mongoose.Schema({
       },
     fispq: {
         type: String,
+        required: false
+    },
+    classe: {
+        type:  Number,
         required: true
     }
 });
