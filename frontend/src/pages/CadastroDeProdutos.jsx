@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import NotificationModal from '../components/notification/NotificationModal'
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import '../styles/cadastroDeProdutos.css';
 
 export default function CadastroDeProdutos(props) {
     const [formData, setFormData] = useState({
-        nome_produto: '',
+        nome: '',
         dataFabricacao: '',
         dataValidade: '',
         quantidade: '',
@@ -45,19 +45,15 @@ export default function CadastroDeProdutos(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const url = 'api';
-
-        const formDataToSend = new FormData();
-        for (const key in formData) {
-            formDataToSend.append(key, formData[key]);
-        }
-
+        const url = 'http://localhost:3000/api/produtos';
+        const token = JSON.parse(sessionStorage.getItem("infoUsuario")).token;
         try {
             const response = await fetch(url, {
                 method: 'POST',
-                body: formDataToSend,
+                body: JSON.stringify(formData),
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
             });
 
@@ -99,13 +95,13 @@ export default function CadastroDeProdutos(props) {
                     <form onSubmit={handleSubmit}>
                         <h1>Cadastro de Produto Químico</h1>
 
-                        <label htmlFor="nome_produto">Nome do produto</label>
+                        <label htmlFor="nome">Nome do produto</label>
                         <input
                             type="text"
-                            name="nome_produto"
+                            name="nome"
                             maxLength={120}
                             required
-                            value={formData.nome_produto}
+                            value={formData.nome}
                             onChange={handleChange}
                         />
 
