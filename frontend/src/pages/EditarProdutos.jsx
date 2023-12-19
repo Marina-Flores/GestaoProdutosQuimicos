@@ -9,7 +9,7 @@ import '../styles/editarProdutos.css';
 export default function EditarProdutos(props) {
     const { id } = useParams();
     const [formData, setFormData] = useState({
-        nome_produto: '',
+        nome: '',
         dataFabricacao: '',
         dataValidade: '',
         quantidade: '',
@@ -20,6 +20,8 @@ export default function EditarProdutos(props) {
         fisqp: null,
         sala: '',
     });
+
+    const token = JSON.parse(sessionStorage.getItem("infoUsuario")).token;
 
     const [notification, setNotification] = useState(null);
 
@@ -35,15 +37,21 @@ export default function EditarProdutos(props) {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch(`http://localhost:3002/api/produto/${id}`);
+            const response = await fetch(`http://localhost:3002/api/produtos/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+              });
             if (response.ok) {
                 const produtoData = await response.json();
-                produtoData.dataDeFabricacao = produtoData.dataDeFabricacao.substring(0, 10);
-                produtoData.dataDeValidade = produtoData.dataDeValidade.substring(0, 10);
+                produtoData.dataFabricacao = produtoData.dataFabricacao.substring(0, 10);
+                produtoData.dataValidade = produtoData.dataValidade.substring(0, 10);
                 const produto = {
                     nome_produto: produtoData.nome,
-                    dataFabricacao: produtoData.dataDeFabricacao,
-                    dataValidade: produtoData.dataDeValidade,
+                    dataFabricacao: produtoData.dataFabricacao,
+                    dataValidade: produtoData.dataValidade,
                     ...produtoData
                 };
               setFormData(produto);
@@ -52,6 +60,8 @@ export default function EditarProdutos(props) {
             }
           } catch (error) {
                 setNotification({ message: 'Erro de conexão!!', success: false });
+            
+                console.log(error)
           }
         };
     
@@ -65,17 +75,13 @@ export default function EditarProdutos(props) {
     const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const formDataToSend = new FormData();
-        for (const key in formData) {
-            formDataToSend.append(key, formData[key]);
-        }
-
-        const response = await fetch(`http://localhost:3002/api/users/edit/${id}`, {
-        method: "PATCH",
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-        body: JSON.stringify(formDataToSend),
+        const response = await fetch(`http://localhost:3002/api/produtos/${id}`, {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
         });
 
         if (response.ok) {
@@ -105,13 +111,13 @@ export default function EditarProdutos(props) {
                     <form onSubmit={handleSubmit}>
                         <h1>Edição de Produto Químico</h1>
 
-                        <label htmlFor="nome_produto">Nome do produto</label>
+                        <label htmlFor="nome">Nome do produto</label>
                         <input
                             type="text"
-                            name="nome_produto"
+                            name="nome"
                             maxLength={120}
                             required
-                            value={formData.nome_produto}
+                            value={formData.nome}
                             onChange={handleChange}
                         />
 
@@ -197,6 +203,7 @@ export default function EditarProdutos(props) {
                         <input
                             type="text"
                             name="sala"
+                            value={formData.sala}
                             onChange={handleChange}
                         />
 
