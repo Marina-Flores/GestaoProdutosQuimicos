@@ -45,7 +45,7 @@ export default function CadastroDeProdutos(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const url = 'http://localhost:3000/api/produtos';
+        const url = 'http://localhost:3002/api/produtos';
         const token = JSON.parse(sessionStorage.getItem("infoUsuario")).token;
         try {
             const response = await fetch(url, {
@@ -56,10 +56,11 @@ export default function CadastroDeProdutos(props) {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-
+            console.log(JSON.stringify(formData));
             if (response.ok) {
                 // Se a requisição for bem-sucedida, exibe o modal verde
                 setNotification({ message: 'Produto cadastrado com sucesso!', success: true });
+                navigate("../listar-produtos"); 
             } else {
                 // Se houver um erro, exibe o modal vermelho
                 setNotification({ message: 'Erro ao cadastrar produto. Tente novamente.', success: false });

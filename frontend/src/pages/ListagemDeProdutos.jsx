@@ -29,7 +29,7 @@ export default function ListagemDeProdutos(props) {
       const token = JSON.parse(sessionStorage.getItem("infoUsuario")).token;
       try {
         // Substitua a URL abaixo pela URL correta do seu backend
-        const response = await fetch(`http://localhost:3000/api/produtos?page=${paginaAtual}`, {
+        const response = await fetch(`http://localhost:3002/api/produtos?page=${paginaAtual}`, {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
