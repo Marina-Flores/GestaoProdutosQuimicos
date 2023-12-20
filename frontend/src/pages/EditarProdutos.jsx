@@ -22,7 +22,6 @@ export default function EditarProdutos(props) {
     });
 
     const [notification, setNotification] = useState(null);
-
     const handleChange = (e) => {
         const { name, value, type, files } = e.target;
         setFormData((prevData) => ({
@@ -30,12 +29,24 @@ export default function EditarProdutos(props) {
             [name]: type === 'file' ? (files.length > 0 ? files[0] : null) : value,
         }));
     };
-    
+    const obterToken = () => {
+            var infoUsuarioString = sessionStorage.getItem("infoUsuario");
+            var infoUsuario = JSON.parse(infoUsuarioString);
+            return infoUsuario.token;
+        }
 
     useEffect(() => {
+        
+
         const fetchData = async () => {
           try {
-            const response = await fetch(`http://localhost:3001/api/produto/${id}`);
+            const response = await fetch(`http://localhost:3002/api/produto/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${obterToken()}`,
+                }
+        });
             if (response.ok) {
                 const produtoData = await response.json();
                 produtoData.dataDeFabricacao = produtoData.dataDeFabricacao.substring(0, 10);
@@ -70,10 +81,11 @@ export default function EditarProdutos(props) {
             formDataToSend.append(key, formData[key]);
         }
 
-        const response = await fetch(`http://localhost:3001/api/users/edit/${id}`, {
+        const response = await fetch(`http://localhost:3002/api/users/edit/${id}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${obterToken()}`
         },
         body: JSON.stringify(formDataToSend),
         });

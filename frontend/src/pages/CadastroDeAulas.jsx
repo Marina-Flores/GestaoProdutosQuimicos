@@ -6,6 +6,11 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CadastroDeAulas(props) {
     const [produtos, setProdutos] = useState([]);
+    const obterToken = () => {
+        var infoUsuarioString = sessionStorage.getItem("infoUsuario");
+        var infoUsuario = JSON.parse(infoUsuarioString);
+        return infoUsuario.token;
+    }
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -13,7 +18,7 @@ export default function CadastroDeAulas(props) {
             var dadosJson = sessionStorage.getItem("infoUsuario")
             var dados = JSON.parse(dadosJson);
 
-            if(dados == null) {
+            if (dados == null) {
                 navigate('../');
             }
         }
@@ -22,13 +27,13 @@ export default function CadastroDeAulas(props) {
 
         const obterProdutos = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/produtos',{
+                const response = await fetch('http://localhost:3002/api/produtos', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMCIsImlhdCI6MTcwMjQ3NzgwNCwiZXhwIjoxNzAyNDk1ODA0fQ.FlxNjVN5s2uR9V5VNQfSIu-v9s1D7wEWuscHq4agqnI`,
+                        'Authorization': `Bearer ${obterToken()}`,
                     }
-            });
+                });
                 const data = await response.json()
 
                 setProdutos(data);
@@ -48,7 +53,7 @@ export default function CadastroDeAulas(props) {
 
             var cbx = document.getElementsByName('produtos');
             for (var i = 0; i < cbx.length; i++) {
-                if(cbx[i].checked)
+                if (cbx[i].checked)
                     listaProdutos.push(parseInt(cbx[i].value))
             }
 
@@ -57,21 +62,21 @@ export default function CadastroDeAulas(props) {
 
         const cadastrarAula = async (aula) => {
             try {
-                const response = await fetch('http://localhost:3000/api/aula', {
+                const response = await fetch('http://localhost:3002/api/aula', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxMCIsImlhdCI6MTcwMjQ3NzgwNCwiZXhwIjoxNzAyNDk1ODA0fQ.FlxNjVN5s2uR9V5VNQfSIu-v9s1D7wEWuscHq4agqnI`,
+                        'Authorization': `Bearer ${obterToken()}`,
                     },
                     body: JSON.stringify(aula)
-            });
-            const json = await response.json()
+                });
+                const json = await response.json()
 
-            if(response.status == 201) {
-                navigate('../listar-produtos');
-            }
+                if (response.status == 201) {
+                    navigate('../listar-produtos');
+                }
 
-            } catch(error) {
+            } catch (error) {
                 console.error(error.message)
             }
         }
@@ -108,14 +113,14 @@ export default function CadastroDeAulas(props) {
                 turnoLabel.classList.add('label-erro');
             }
 
-            if(listaProdutos.length > 0) {
+            if (listaProdutos.length > 0) {
                 contador++;
                 produtosLabel.classList.remove('label-erro')
             } else {
                 produtosLabel.classList.add('label-erro');
             }
 
-            if(contador == 4) {
+            if (contador == 4) {
                 var aula = {
                     laboratorio: laboratorio.value,
                     data: data.value,

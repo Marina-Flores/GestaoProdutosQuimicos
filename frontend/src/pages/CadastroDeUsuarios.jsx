@@ -15,7 +15,11 @@ export default function CadastroDeUsuarios(props) {
     });
     const navigate = useNavigate();
     var { id } = useParams();
-
+    const obterToken = () => {
+        var infoUsuarioString = sessionStorage.getItem("infoUsuario");
+        var infoUsuario = JSON.parse(infoUsuarioString);
+        return infoUsuario.token;
+    }
     useEffect(() => {
         const verificarUsuarioLogado = () => {
             var dadosJson = sessionStorage.getItem("infoUsuario")
@@ -30,7 +34,14 @@ export default function CadastroDeUsuarios(props) {
 
         const carregarUsuario = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/users/' + id)
+
+                const response = await fetch('http://localhost:3002/api/users/' + id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${obterToken()}`,
+                    }
+                });
                 const data = await response.json();
 
                 console.log(data)
@@ -53,10 +64,11 @@ export default function CadastroDeUsuarios(props) {
 
         const cadastrarUsuario = async (usuario) => {
             try {
-                const response = await fetch('http://localhost:3000/api/users', {
+                const response = await fetch('http://localhost:3002/api/users', {
                     method: "POST",
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${obterToken()}`,
                     },
                     body: JSON.stringify(usuario)
                 })
@@ -72,10 +84,11 @@ export default function CadastroDeUsuarios(props) {
 
         const editarUsuario = async (usuario) => {
             try {
-                const response = await fetch('http://localhost:3000/api/users/' + id, {
+                const response = await fetch('http://localhost:3002/api/users/' + id, {
                     method: "POST",
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${obterToken()}`,
                     },
                     body: JSON.stringify(usuario)
                 })

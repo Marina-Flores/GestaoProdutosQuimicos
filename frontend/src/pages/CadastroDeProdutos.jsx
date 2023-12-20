@@ -21,7 +21,11 @@ export default function CadastroDeProdutos(props) {
     const navigate = useNavigate();
 
     const [notification, setNotification] = useState(null);
-
+    const obterToken = () => {
+        var infoUsuarioString = sessionStorage.getItem("infoUsuario");
+        var infoUsuario = JSON.parse(infoUsuarioString);
+        return infoUsuario.token;
+    }
     const handleChange = (e) => {
         const { name, value, type, files } = e.target;
         setFormData((prevData) => ({
@@ -29,23 +33,27 @@ export default function CadastroDeProdutos(props) {
             [name]: type === 'file' ? (files.length > 0 ? files[0] : null) : value,
         }));
     };
-    
+
     useEffect(() => {
         const verificarUsuarioLogado = () => {
             var dadosJson = sessionStorage.getItem("infoUsuario")
             var dados = JSON.parse(dadosJson);
 
-            if(dados == null) {
+            if (dados == null) {
                 navigate('../');
             }
         }
 
         verificarUsuarioLogado();
+
+
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const url = 'api';
+
+
 
         const formDataToSend = new FormData();
         for (const key in formData) {
@@ -58,6 +66,7 @@ export default function CadastroDeProdutos(props) {
                 body: formDataToSend,
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${obterToken()}`
                 },
             });
 

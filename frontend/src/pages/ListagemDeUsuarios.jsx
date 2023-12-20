@@ -7,7 +7,7 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer/Footer.jsx';
 import { useNavigate } from 'react-router-dom';
 
-export default function ListagemUsuarios (props) {
+export default function ListagemUsuarios(props) {
   const [usuarios, setUsuarios] = useState([]);
   const [filtros, setFiltros] = useState({
     ativo: false,
@@ -22,16 +22,28 @@ export default function ListagemUsuarios (props) {
       var dadosJson = sessionStorage.getItem("infoUsuario")
       var dados = JSON.parse(dadosJson);
 
-      if(dados == null) {
-          navigate('../');
+      if (dados == null) {
+        navigate('../');
       }
-  }
+    }
 
-  verificarUsuarioLogado();
+    verificarUsuarioLogado();
+
+    const obterToken = () => {
+      var infoUsuarioString = sessionStorage.getItem("infoUsuario");
+      var infoUsuario = JSON.parse(infoUsuarioString);
+      return infoUsuario.token;
+    }
 
     const fetchUsuarios = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/users/all');
+        const response = await fetch('http://localhost:3002/api/users/all', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${obterToken()}`,
+          }
+        });
         if (response.ok) {
           const data = await response.json();
           setUsuarios(data.safeUsers || []);
@@ -128,7 +140,7 @@ export default function ListagemUsuarios (props) {
                   <option value={20}>20 usuários por página</option>
                   <option value={50}>50 usuários por página</option>
                 </select>
-                <button className='btn-novo-usuario pointer'>
+                <button to={"/cadastrar-usuario"} className='btn-novo-usuario pointer'>
                   Novo usuário <i className='fa-solid fa-plus'></i>
                 </button>
               </div>
@@ -142,14 +154,14 @@ export default function ListagemUsuarios (props) {
             </div>
 
             <ul className='lista-usuarios'>
-                {usuariosFiltrados.map((usuario) => (
-                    <li key={usuario.matricula} className='item-usuario'>
-                    <p className='item-usuario-nome'>{usuario.nome}</p>
-                    <p className='item-usuario-cargo'>{usuario.cargo}</p>
-                    <p className='item-usuario-matricula'>{usuario.matricula}</p>
-                    {/* Adicione as ações do usuário aqui */}
-                    </li>
-                ))}
+              {usuariosFiltrados.map((usuario) => (
+                <li key={usuario.matricula} className='item-usuario'>
+                  <p className='item-usuario-nome'>{usuario.nome}</p>
+                  <p className='item-usuario-cargo'>{usuario.cargo}</p>
+                  <p className='item-usuario-matricula'>{usuario.matricula}</p>
+                  {/* Adicione as ações do usuário aqui */}
+                </li>
+              ))}
             </ul>
 
             <ul className='lista-usuarios'>
@@ -160,25 +172,25 @@ export default function ListagemUsuarios (props) {
                   <p className='item-usuario-cargo'>{usuario.cargo}</p>
                   <p className='item-usuario-matricula'>{usuario.matricula}</p>
                   <div className='item-usuario-acoes'>
-                        <a>
-                            <FontAwesomeIcon icon={faEdit} className='icone icone-edicao' />
-                        </a>
-                        <a>
-                            <FontAwesomeIcon icon={faTrash} className='icone icone-delecao' />
-                        </a>
-                    </div>
+                    <a>
+                      <FontAwesomeIcon icon={faEdit} className='icone icone-edicao' />
+                    </a>
+                    <a>
+                      <FontAwesomeIcon icon={faTrash} className='icone icone-delecao' />
+                    </a>
+                  </div>
                   {/* Adicione as ações do usuário aqui */}
                 </li>
               ))}
             </ul>
 
             <div className='botoes-paginacao'>
-            <button className='pagina-anterior pointer'>
-                                <i class="fa-solid fa-chevron-left"></i> Anterior
-                            </button>
-                            <button className='proxima-pagina pointer'>
-                                Próxima <i class="fa-solid fa-chevron-right"></i>
-                            </button>
+              <button className='pagina-anterior pointer'>
+                <i class="fa-solid fa-chevron-left"></i> Anterior
+              </button>
+              <button className='proxima-pagina pointer'>
+                Próxima <i class="fa-solid fa-chevron-right"></i>
+              </button>
             </div>
           </div>
         </div>

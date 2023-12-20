@@ -11,24 +11,34 @@ export default function ListagemDeProdutos(props) {
   const [paginaAtual, setPaginaAtual] = useState(1);
   const produtosPorPagina = 10;
   const navigate = useNavigate();
-
+  const obterToken = () => {
+    var infoUsuarioString = sessionStorage.getItem("infoUsuario");
+    var infoUsuario = JSON.parse(infoUsuarioString);
+    return infoUsuario.token;
+  }
   useEffect(() => {
     const verificarUsuarioLogado = () => {
       var dadosJson = sessionStorage.getItem("infoUsuario")
       var dados = JSON.parse(dadosJson);
 
-      if(dados == null) {
-          navigate('../');
+      if (dados == null) {
+        navigate('../');
       }
-  }
+    }
 
-  verificarUsuarioLogado();
+    verificarUsuarioLogado();
 
     // Função para buscar os produtos do backend
     const fetchProdutos = async () => {
       try {
         // Substitua a URL abaixo pela URL correta do seu backend
-        const response = await fetch(`API_PARA_O_BACKEND?page=${paginaAtual}`);
+        const response = await fetch(`API_PARA_O_BACKEND?page=${paginaAtual}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${obterToken()}`,
+          }
+        });
         const data = await response.json();
         setProdutos(data); // Atualiza o estado com os produtos obtidos
       } catch (error) {
@@ -62,29 +72,29 @@ export default function ListagemDeProdutos(props) {
             <aside className="aside__filtros">
               <h2>Filtros</h2>
               <div className="filtro status">
-                    <h3>Status</h3>
-                    <Checkbox name="Ativo" checked="checked"/>
-                    <Checkbox name="Inativo" />
-                </div>
+                <h3>Status</h3>
+                <Checkbox name="Ativo" checked="checked" />
+                <Checkbox name="Inativo" />
+              </div>
 
-                <div className="filtro classe__de__risco">
-                    <h3>Classe de risco</h3>
-                    <Checkbox name="1" checked="checked"/>
-                    <Checkbox name="2" />
-                    <Checkbox name="3" />
-                    <Checkbox name="4" />
-                    <Checkbox name="5" />
-                    <Checkbox name="6" />
-                    <Checkbox name="7" />
-                    <Checkbox name="8" />
-                    <Checkbox name="9" />
-                </div>                    
+              <div className="filtro classe__de__risco">
+                <h3>Classe de risco</h3>
+                <Checkbox name="1" checked="checked" />
+                <Checkbox name="2" />
+                <Checkbox name="3" />
+                <Checkbox name="4" />
+                <Checkbox name="5" />
+                <Checkbox name="6" />
+                <Checkbox name="7" />
+                <Checkbox name="8" />
+                <Checkbox name="9" />
+              </div>
 
-                <div className="filtro ph">
-                    <h3>PH</h3>
-                    <Checkbox name="Ácido" />
-                    <Checkbox name="Básico" />
-                </div>
+              <div className="filtro ph">
+                <h3>PH</h3>
+                <Checkbox name="Ácido" />
+                <Checkbox name="Básico" />
+              </div>
             </aside>
           </div>
 
@@ -129,18 +139,18 @@ export default function ListagemDeProdutos(props) {
                   />
                 ))}
                 <Produto
-                    key={'091823098'}
-                    _id={'091823098'}
-                    name='Álcool 70%'
-                    fisqp={null}
-                    classeDeRisco={7}
-                    quantidade={8}
-                    estadoFisico={'Líquido (ml)'}
-                    dataFabricacao={'23/03/2023'}
-                    dataValidade={'23/03/2028'}
-                    controlado={'Não'}
-                    sala={'12'}
-                  />
+                  key={'091823098'}
+                  _id={'091823098'}
+                  name='Álcool 70%'
+                  fisqp={null}
+                  classeDeRisco={7}
+                  quantidade={8}
+                  estadoFisico={'Líquido (ml)'}
+                  dataFabricacao={'23/03/2023'}
+                  dataValidade={'23/03/2028'}
+                  controlado={'Não'}
+                  sala={'12'}
+                />
               </div>
               <div className="footer">
                 <div className="anterior" onClick={handleAnterior}>
