@@ -190,3 +190,7 @@
     border-radius: 12px;
     cursor: pointer;
 }
+
+.proximo, .anterior{
+    margin-top: 1rem;
+}

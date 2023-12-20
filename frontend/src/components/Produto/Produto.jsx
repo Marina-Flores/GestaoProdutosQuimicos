@@ -2,7 +2,8 @@ import React from "react";
 
 import './produto.css';
 import { Link } from "react-router-dom";
-    
+
+
 export default function Produto(props) {
     return (
         <div className="container__produto">
@@ -22,10 +23,10 @@ export default function Produto(props) {
                         {props.estadoFisico}
                     </div>
                     <div className="produto__data__fabricacao">
-                        {props.dataFabricacao}
+                        {new Date(props.dataFabricacao).toLocaleDateString('pt-BR')}
                     </div>
                     <div className="produto__data__validade">
-                        {props.dataValidade}
+                        {new Date(props.dataValidade).toLocaleDateString('pt-BR')}
                     </div>
                     <div className={`produto__classe__de__risco`}>
                         {props.classeDeRisco}

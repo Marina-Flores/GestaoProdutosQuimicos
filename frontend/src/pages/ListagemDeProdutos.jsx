@@ -9,7 +9,7 @@ import '../styles/listagemDeProdutos.css';
 export default function ListagemDeProdutos(props) {
   const [produtos, setProdutos] = useState([]);
   const [paginaAtual, setPaginaAtual] = useState(1);
-  const produtosPorPagina = 10;
+  const produtosPorPagina = 7;
   const navigate = useNavigate();
   const obterToken = () => {
     var infoUsuarioString = sessionStorage.getItem("infoUsuario");
@@ -30,9 +30,10 @@ export default function ListagemDeProdutos(props) {
 
     // Função para buscar os produtos do backend
     const fetchProdutos = async () => {
+      const token = JSON.parse(sessionStorage.getItem("infoUsuario")).token;
       try {
         // Substitua a URL abaixo pela URL correta do seu backend
-        const response = await fetch(`API_PARA_O_BACKEND?page=${paginaAtual}`, {
+        const response = await fetch(`http://localhost:3002/api/produtos?page=${paginaAtual}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -45,12 +46,12 @@ export default function ListagemDeProdutos(props) {
         console.error('Erro ao buscar produtos:', error.message);
       }
     };
-
     fetchProdutos(); // Chama a função ao montar o componente ou quando a página atual muda
   }, [paginaAtual]);
 
   const handleProximo = () => {
-    setPaginaAtual((prevPagina) => prevPagina + 1);
+    const ultimaPagina = Math.ceil(produtos.length / produtosPorPagina);
+    if (paginaAtual < ultimaPagina) setPaginaAtual((prevPagina) => prevPagina + 1);
   };
 
   const handleAnterior = () => {
@@ -125,8 +126,8 @@ export default function ListagemDeProdutos(props) {
                 {/* Mapeamento dos produtos */}
                 {produtosExibidos.map((produto) => (
                   <Produto
-                    key={produto.id}
-                    _id={produto.id}
+                    key={produto._id}
+                    _id={produto._id}
                     name={produto.nome}
                     fisqp={produto.fisqp}
                     classeDeRisco={produto.classeDeRisco}
@@ -138,19 +139,6 @@ export default function ListagemDeProdutos(props) {
                     sala={produto.sala}
                   />
                 ))}
-                <Produto
-                  key={'091823098'}
-                  _id={'091823098'}
-                  name='Álcool 70%'
-                  fisqp={null}
-                  classeDeRisco={7}
-                  quantidade={8}
-                  estadoFisico={'Líquido (ml)'}
-                  dataFabricacao={'23/03/2023'}
-                  dataValidade={'23/03/2028'}
-                  controlado={'Não'}
-                  sala={'12'}
-                />
               </div>
               <div className="footer">
                 <div className="anterior" onClick={handleAnterior}>
@@ -160,7 +148,7 @@ export default function ListagemDeProdutos(props) {
 
                 <div className="proximo" onClick={handleProximo}>
                   <p>Próximo</p>
-                  <i className="fa-solid fa-arrow-right" onClick={handleAnterior()}></i>
+                  <i className="fa-solid fa-arrow-right" onClick={handleProximo}></i>
                 </div>
               </div>
             </div>

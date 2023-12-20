@@ -34,14 +34,7 @@ export default function CadastroDeUsuarios(props) {
 
         const carregarUsuario = async () => {
             try {
-
-                const response = await fetch('http://localhost:3002/api/users/' + id, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${obterToken()}`,
-                    }
-                });
+                const response = await fetch('http://localhost:3002/api/users/' + id)
                 const data = await response.json();
 
                 console.log(data)
@@ -73,13 +66,14 @@ export default function CadastroDeUsuarios(props) {
                     body: JSON.stringify(usuario)
                 })
 
+                console.log(JSON.stringify(usuario));
+
                 if (response.status == 201) {
                     navigate('../listar-usuarios');
                 }
             } catch (error) {
                 console.log(error.message);
             }
-
         }
 
         const editarUsuario = async (usuario) => {

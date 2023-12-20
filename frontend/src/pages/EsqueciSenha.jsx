@@ -7,7 +7,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-
+import { useNavigate  } from 'react-router-dom'; 
 import logo from '../assets/img/logo.png'; 
 
 
@@ -53,7 +53,7 @@ export default function EsqueciSenha() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordMatch, setPasswordMatch] = useState(true);
     const [mensagem, setMensagem] = useState('');
-    
+    const navigate = useNavigate();
   
     const handlePasswordChange = (e) => {
       setPassword(e.target.value);
@@ -71,7 +71,7 @@ export default function EsqueciSenha() {
       if (password === confirmPassword) {
        if (token) {         
                 try {
-                    const response = await fetch('http://localhost:3001/api/user/trocarSenha', {
+                    const response = await fetch('http://localhost:3002/api/recuperar-senha/trocar-senha', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -87,6 +87,9 @@ export default function EsqueciSenha() {
 
                     } else {
                         setMensagem('Senha atualizada com sucesso!'); // Mensagem de sucesso
+                        setTimeout(() => {
+                          navigate('/login');
+                      }, 1000);
 
                     }
    

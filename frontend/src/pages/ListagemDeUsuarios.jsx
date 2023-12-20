@@ -15,6 +15,7 @@ export default function ListagemUsuarios(props) {
     cargoProfessor: false,
     cargoAnalista: false,
   });
+  
   const navigate = useNavigate();
 
   useEffect(() => {

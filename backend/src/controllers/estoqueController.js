@@ -7,11 +7,10 @@ const estoqueController = {
     try {
       const newEstoque = await Estoque.create(req.body);
       if (req.user) {
-        const userId = req.user._id;
-        const logEstoque = await LogEstoque.create({
-          user_id: userId,
+        await LogEstoque.create({
+          user_id: newEstoque.id,
           estoque_id_impactado: newEstoque.id,
-          action: `Item de estoque associado ao produto '${newEstoque.IDProduto} [${newEstoque.id}]' criado pelo usuário [${userId}]`
+          action: `Item de estoque associado ao produto '${newEstoque.IDProduto} [${newEstoque.id}]' criado pelo usuário [${newEstoque.id}]`
         });
       }
       res.status(201).json({ message: 'Item de estoque criado com sucesso', estoque: newEstoque });
@@ -39,11 +38,10 @@ const estoqueController = {
         await estoqueItem.save();
   
         if (req.user) {
-          const userId = req.user._id;
-          const logEstoque = await LogEstoque.create({
-            user_id: userId,
+          await LogEstoque.create({
+            user_id: estoqueItem.id,
             estoque_id_impactado: estoqueItem.id,
-            action: `Adição de ${Quantidade} unidades do produto '${IDdoProduto}' ao estoque na sala '${Sala}' pelo usuário [${userId}]`
+            action: `Adição de ${Quantidade} unidades do produto '${IDdoProduto}' ao estoque na sala '${Sala}' pelo usuário [${estoqueItem.id}]`
           });
         }
   
@@ -82,11 +80,10 @@ const estoqueController = {
       const updatedEstoqueItem = await Estoque.findByIdAndUpdate(id, req.body, { new: true });
 
       if (updatedEstoqueItem) {
-        const userId = req.user._id;
-        const logEstoque = await LogEstoque.create({
-          user_id: userId,
+        await LogEstoque.create({
+          user_id: updatedEstoqueItem.id,
           estoque_id_impactado: updatedEstoqueItem.id,
-          action: `Item de estoque associado ao produto '${updatedEstoqueItem.IDProduto} [${updatedEstoqueItem.id}]' atualizado pelo usuário [${userId}]`
+          action: `Item de estoque associado ao produto '${updatedEstoqueItem.IDProduto} [${updatedEstoqueItem.id}]' atualizado pelo usuário [${updatedEstoqueItem.id}]`
         });
         res.status(200).json({ message: 'Item de estoque atualizado com sucesso', estoque: updatedEstoqueItem });
       } else {
@@ -104,11 +101,10 @@ const estoqueController = {
       const deletedEstoqueItem = await Estoque.findByIdAndDelete(id);
 
       if (deletedEstoqueItem) {
-        const userId = req.user._id;
-        const logEstoque = await LogEstoque.create({
-          user_id: userId,
+        await LogEstoque.create({
+          user_id: deletedEstoqueItem.id,
           estoque_id_impactado: deletedEstoqueItem.id,
-          action: `Item de estoque associado ao produto '${deletedEstoqueItem.IDProduto} [${deletedEstoqueItem.id}]' removido pelo usuário [${userId}]`
+          action: `Item de estoque associado ao produto '${deletedEstoqueItem.IDProduto} [${deletedEstoqueItem.id}]' removido pelo usuário [${deletedEstoqueItem.id}]`
         });
         res.status(200).json({ message: 'Item de estoque deletado com sucesso', estoque: deletedEstoqueItem });
       } else {

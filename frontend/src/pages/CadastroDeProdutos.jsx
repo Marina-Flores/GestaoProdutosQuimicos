@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import NotificationModal from '../components/notification/NotificationModal'
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import '../styles/cadastroDeProdutos.css';
 
 export default function CadastroDeProdutos(props) {
     const [formData, setFormData] = useState({
-        nome_produto: '',
+        nome: '',
         dataFabricacao: '',
         dataValidade: '',
         quantidade: '',
@@ -51,9 +51,8 @@ export default function CadastroDeProdutos(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const url = 'api';
-
-
+        const url = 'http://localhost:3002/api/produtos';
+        const token = JSON.parse(sessionStorage.getItem("infoUsuario")).token;
 
         const formDataToSend = new FormData();
         for (const key in formData) {
@@ -63,16 +62,17 @@ export default function CadastroDeProdutos(props) {
         try {
             const response = await fetch(url, {
                 method: 'POST',
-                body: formDataToSend,
+                body: JSON.stringify(formData),
                 headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${obterToken()}`
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
             });
-
+            console.log(JSON.stringify(formData));
             if (response.ok) {
                 // Se a requisição for bem-sucedida, exibe o modal verde
                 setNotification({ message: 'Produto cadastrado com sucesso!', success: true });
+                navigate("../listar-produtos"); 
             } else {
                 // Se houver um erro, exibe o modal vermelho
                 setNotification({ message: 'Erro ao cadastrar produto. Tente novamente.', success: false });
@@ -108,13 +108,13 @@ export default function CadastroDeProdutos(props) {
                     <form onSubmit={handleSubmit}>
                         <h1>Cadastro de Produto Químico</h1>
 
-                        <label htmlFor="nome_produto">Nome do produto</label>
+                        <label htmlFor="nome">Nome do produto</label>
                         <input
                             type="text"
-                            name="nome_produto"
+                            name="nome"
                             maxLength={120}
                             required
-                            value={formData.nome_produto}
+                            value={formData.nome}
                             onChange={handleChange}
                         />
 

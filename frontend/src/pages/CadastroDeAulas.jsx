@@ -27,7 +27,7 @@ export default function CadastroDeAulas(props) {
 
         const obterProdutos = async () => {
             try {
-                const response = await fetch('http://localhost:3002/api/produtos', {
+                const response = await fetch('http://localhost:3002/api/produtos',{
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
